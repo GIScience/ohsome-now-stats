@@ -1,0 +1,25 @@
+{
+  "namespace": "org.heigit.ohsome.now.parquet.avro",
+  "name": "AvroChangeset",
+  "type": "record",
+  "fields": [
+    { "name": "id", "type": "long"},
+    { "name": "created_at", "type": {
+        "type": "long",
+        "locicalType": "timestamp-millis"
+      }},
+    { "name": "closed_at", "type": [ "null", {
+          "type": "long",
+          "locicalType": "timestamp-millis"
+        }]},
+    { "name": "hot", "type": "boolean"},
+    { "name": "hashtags", "type": {
+        "type": "array",
+        "items": "string"
+      }},
+    { "name": "tags", "type": {
+        "type": "map",
+        "values": "string"
+      }}
+  ]
+}

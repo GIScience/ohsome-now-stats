@@ -1,0 +1,26 @@
+{
+  "namespace": "org.heigit.ohsome.now.parquet.avro",
+  "name": "AvroHOTStats",
+  "type": "record",
+  "fields": [
+    { "name": "contrib_id", "type": {
+      "type": "fixed",
+      "name": "AvroContribId",
+      "doc": "a combined id from osm-type(1), osm-id(8), changeset-timestamp(8), changeset-id(8)",
+      "size": 25}},
+    //    { "name": "osm-type", "type": "string"}, // partition
+    { "name":  "osm_id", "type": "long"},
+    { "name": "changeset_id", "type": "long"},
+    { "name": "changeset_timestamp", "type": { "type": "long", "locicalType": "timestamp-millis"}},
+    { "name": "hashtags", "type": {"type": "array", "items": "string"}},
+    { "name": "user_id", "type": "int"},
+    { "name": "tree", "type": ["null", "int"] },
+    { "name": "building_area", "type": ["null","double"]},
+    { "name": "building_area_delta", "type": ["null","double"]},
+    { "name": "road_length", "type": ["null", "double"]},
+    { "name": "road_length_delta", "type": ["null", "double"]},
+    { "name": "contrib_type", "type": {"name": "AvroContribType", "type": "enum", "symbols":  [
+      "CREATED", "DELETED", "TAG", "GEOMETRY", "TAG_GEOMETRY", "NONE"]}},
+    { "name":  "country_iso_a3", "type": {"type": "array", "items": "string"}}
+  ]
+}
