@@ -72,7 +72,7 @@ select
 count(distinct osm_user_id) as n_contributors
 from contributions
 where
-hashtag = '#your_hashtag1' AND hashtag = '#your_hashtag2');
+hashtag = '#your_hashtag1' AND hashtag = '#your_hashtag2';
 ```
 
 EQ6.2 OR Combined Number of OSM Contributors
@@ -81,7 +81,7 @@ select
 count(distinct osm_user_id) as n_contributors
 from contributions
 where
-hashtag = '#your_hashtag1' OR hashtag = '#your_hashtag2');
+hashtag = '#your_hashtag1' OR hashtag = '#your_hashtag2';
 ```
 
 ## Queries with time range filter and no group by
