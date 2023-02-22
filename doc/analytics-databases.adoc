@@ -1,0 +1,215 @@
+= Candidate databases for analytical use cases
+
+Both, the microservice movement and principal considerations in the realm of big data processing, have emphasized the trend to use a dedicated database for every use case.
+While there used to be central database servers shared by many services within an organization the focus is now on more independence / lower schema-coupling through separate instances.
+The availability of many different open-source databases also made it possible to use the best-suited database for a given task ("Unbundling the Database").
+The smaller scope of a database decision also helps to reduce the risk of strong coupling to a (potentially poorly chosen) database.
+
+However, it is also clear that an organization can only be proficient in a limited number of database technologies, so care should still be taken not to use _too many_ different database systems without proper justification.
+
+== Important architectual critera
+
+The decision for a particular database technology and product has many facets.
+In the following we list a number of criteria which can aid the selection.
+As we are planning for a read-heavy system with analytical queries some of these criteria become more important than they would be for more transactional workloads.
+
+
+=== Overall complexity
+
+* low: in-process
+* medium: classic client-server (or cloud-managed cluster )
+* high: self-managed cluster
+
+
+=== Query language
+
+* SQL
+* proprietary language
+
+
+=== Type
+
+* OLTP: transactional, row-oriented workloads
+* OLAP: analytical, read-heavy, column-oriented workloads
+* HTAP: hybrid OLTP and OLAP
+
+
+=== Scaling
+
+* vertical (bigger machine)
+* horizontal (more machines)
+* read replication (write to 1 machine, read from many)
+
+
+=== Spatial support
+
+* none
+* limited (basic spatial indexes, data types, and function )
+* full (e.g. PostGIS)
+
+
+=== JDBC support
+
+* yes
+* no
+
+=== Support for extensions / UDF
+
+* based on SQL
+* based on external programming language
+
+=== Time-Series Support
+
+* minimal
+* basic
+* extended (automatic aggregations)
+
+== Selected Candidates
+
+The following table gives a very brief overview of possible databases for analytical use cases, such as the HOT OSM stats services.
+
+|===
+|
+Name                    |
+Summary                 |
+Type                    |
+Storage layout          |
+Cloud offerings         |
+On Prem                 |
+spatial support         |
+in memory option        |
+in process option       |
+Query language          |
+User-defined functions  |
+Ingestion/Import        |
+JDBC                    |
+Scaling                 |
+Time-Series support     |
+Overall arch complexity
+
+| PostgreSQL
+| default for most use cases
+| OLTP
+| row-oriented
+| yes
+| yes
+| excellent (PostGIS)
+| commercial extension (?)
+| no
+| SQL
+| SQL, C (and specialized others)
+| SQL `COPY`, `psql` imports of dumps
+| yes
+| vertical or read replication
+| minimal
+| medium
+
+| SQLite
+| world's most-wideley used DB
+| OLTP
+| row-oriented
+| no
+| yes
+| SpatiaLite
+| no
+| yes
+| SQL
+| SQL, C
+| file import with `sqlite3` tool
+| yes
+| vertical
+| minimal
+| low
+
+| DuckDB
+| "SQLite for analytics"
+| OLAP
+| column-oriented
+| no
+| yes
+| planned
+| yes
+| yes
+| SQL
+| C++ UDF API
+| custom Appender, CSV, parquet, PostgreSQL, SQLite
+| yes
+| vertical
+| minimal
+| low
+
+| ClickHouse
+|
+| OLAP
+| column-oriented
+| yes
+| yes
+| yes
+| limited
+| no
+| SQL
+| UDF with lambdas
+| custom async lib, PostgreSQL, SQLite, Kafka table engine
+| yes
+| horizontal
+| basic
+| high (on-prem) - medium (cloud)
+
+| TimescaleDB
+| PostgreSQL + Time Series
+| Time Series
+| row-oriented
+| yes
+| yes
+| yes (PostGIS)
+| no
+| no
+| SQL
+| SQL, C (and specialized others)
+| see PostgreSQL
+| yes
+| horizontal
+| extended
+| high (on-prem) - medium (cloud)
+
+|===
+
+* Pinot
+* Druid
+
+* InfluxDB
+* crateDB
+
+== Other potential candidates
+
+- Google AlloyDB
+- AWS Redshift
+- Snowflake
+- Slasticsearch
+- Cassandra
+- MongoDB
+- Hudi
+- Rockset
+- Kudu
+- Greenplum
+- Graphite
+
+== References
+
+* "Turning the database inside-out with Apache Samza" - https://martin.kleppmann.com/2015/03/04/turning-the-database-inside-out.html
+
+* Venkat Subramaniam: "Both, in life and computing: Never share a tooth brush or database"
+* https://arctype.com/blog/import-data-postgres/
+* https://www.postgresql.org/docs/current/xfunc.html
+* https://www.sqlite.org/appfunc.html
+* https://www.sqlitetutorial.net/sqlite-import-csv/
+* https://duckdb.org/docs/api/cpp#udf-api
+
+* "Continuous aggregates: faster queries with automatically maintained materialized views" - https://www.timescale.com/blog/continuous-aggregates-faster-queries-with-automatically-maintained-materialized-views/
+
+* https://carto.com/blog/geospatial-processing-with-clickhouse/
+* https://clickhouse.com/docs/en/sql-reference/functions/geo/coordinates/
+* https://clickhouse.com/docs/en/engines/table-engines/special/memory
+* https://clickhouse.com/blog/working-with-time-series-data-and-functions-ClickHouse
+* https://medium.com/timescale/timescaledb-vs-6a696248104e
+* https://liangliangliangtan.github.io/2020-03-17-Create-time-series-spatial-databases-With-TimeScaleDB-and-PostGIS.html
