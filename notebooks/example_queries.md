@@ -8,7 +8,7 @@ comparison of different approaches:
 * parquet file with OSHDB contributions
 
 ## Hashtags
-Hashtags should be case insensitive. This means that when you are adding `#missingmaps` or `#MissingMaps` or `#missingMaps` this will all be counted towards lower case `missingmaps`. This is currently the case for the processing of the osmstats-api.
+Hashtags should be case insensitive. This means that when you are adding `#missingmaps` or `#MissingMaps` or `#missingMaps` to a changeset comment this will all be counted towards lower case `missingmaps`. This is currently the case for the processing of the osmstats-api.
 
 The following hashtags are considered for testing and validating the example queries:
 * `#missingmaps`
