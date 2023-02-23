@@ -58,7 +58,7 @@ As we are planning for a read-heavy system with analytical queries some of these
 * based on SQL
 * based on external programming language
 
-=== Time-Series Support
+=== Time-Series / Auto-aggregation Support
 
 * minimal
 * basic
@@ -70,21 +70,21 @@ The following table gives a very brief overview of possible databases for analyt
 
 |===
 |
-Name                    |
-Summary                 |
-Type                    |
-Storage layout          |
-Cloud offerings         |
-On Prem                 |
-spatial support         |
-in memory option        |
-in process option       |
-Query language          |
-User-defined functions  |
-Ingestion/Import        |
-JDBC                    |
-Scaling                 |
-Time-Series support     |
+Name                         |
+Summary                      |
+Type                         |
+Storage layout               |
+Cloud offerings              |
+On Prem                      |
+spatial support              |
+in memory option             |
+in process option            |
+Query language               |
+User-defined functions       |
+Ingestion/Import             |
+JDBC                         |
+Scaling                      |
+Time-Series/Auto-aggregation |
 Overall arch complexity
 
 | PostgreSQL
@@ -152,7 +152,7 @@ Overall arch complexity
 | custom async lib, PostgreSQL, SQLite, Kafka table engine
 | yes
 | horizontal
-| basic
+| extended auto-aggregation (Summing/AggregatingMergeTree engines)
 | high (on-prem) - medium (cloud)
 
 | TimescaleDB
