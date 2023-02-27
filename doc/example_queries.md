@@ -2,7 +2,7 @@
 This section describes example queries using "pseudo"-code.
 You can't use these queries directly, but should read them as a description of what should be analyzed.
 
-## OSM Statistics:
+### OSM Statistics:
 
 Overview:
 * [S00 Overview Stats](#s00-overview-stats)
@@ -47,7 +47,7 @@ Optional:
 * [F99 Filter by OSM User ID](#f99-filter-by-osm-user-id--optional-)
 * [F99 Filter by Topic](#f99-filter-by-osm-user-id--optional-)
 
-## Grouping Dimensions
+### Grouping Dimensions
 * [A01 Group by Hashtag](#a01-group-by-hashtag)
 * [A02 Group by Temporal Unit](#a02-group-by-temporal-unit)
 * [A03 Group by Country](#a03-group-by-country)
@@ -56,7 +56,7 @@ Optional:
 * [A99 Group by OSM User ID](#a99-group-by-osm-user-id--optional-)
 * [A99 Group by Editor]()
 
-## Definitions
+### Definitions
 * [Hashtags](#hashtags)
 * [Filter Topics](#filter-topics)
 * [Time Range and Time Interval](#time-range-and-time-interval)
