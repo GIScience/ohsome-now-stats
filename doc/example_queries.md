@@ -3,6 +3,10 @@ This section describes example queries using "pseudo"-code.
 You can't use these queries directly, but should read them as a description of what should be analyzed.
 
 ## OSM Statistics:
+
+Overview:
+* [S00 Overview Stats](#s00-overview-stats)
+
 OSM Contributors:
 * [S01 Number of OSM Contributors](#s01-number-of-osm-contributors)
 * [S05 Absolute Number of OSM Contributors by Temporal Unit](#s05-absolute-number-of-osm-contributors-by-temporal-unit)
@@ -50,6 +54,7 @@ Optional:
 
 Optional:
 * [A99 Group by OSM User ID](#a99-group-by-osm-user-id--optional-)
+* [A99 Group by Editor]()
 
 ## Definitions
 * [Hashtags](#hashtags)
@@ -58,6 +63,34 @@ Optional:
 * [Datasets](#datasets)
 
 ## OSM Statistics
+### S00 Overview Stats
+```sql
+select
+    count(distinct changeset_id) as n_changesets
+    ,count(distinct osm_user_id) as n_contributors
+    ,sum(road_length_delta) as roads_km_added
+    ,sum(buildings_added) as n_buildings_added
+    ,sum(primary_map_edits) as n_total_map_edits
+from contributions
+where
+hashtag = 'missingmaps';
+```
+
+This is the most frequently used endpoint by the current [osmstats-api](https://github.com/hotosm/osm-stats/blob/master/documentation/API.md). This provides an overview on several OSM statistics which are explained in more detail for the example queries below.
+
+```json
+{
+   "changesets": 78780,
+   "users": 11650,
+   "roads": 179989.04738327922,
+   "buildings": 788602,
+   "edits": 979390,
+   "latest": "2016-07-15T04:36:58.000Z"
+ }
+```
+
+
+
 ### S01 Number of OSM Contributors
 ```sql
 select
@@ -324,6 +357,10 @@ tbd
 
 ### A99 Group by OSM User ID (optional)
 tbd
+
+### A99 Group by Editor
+e.g. group by `JOSM 1.5` or `iD 2.20.2`.
+
 
 # Definitions
 ## Hashtags
