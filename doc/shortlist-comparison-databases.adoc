@@ -35,13 +35,60 @@ These systems are:
   an emerging _embedded_ OLAP database (column-oriented)
 
 * `ClickHouse`:
-  a distributed OLAP database, available both, as cloud service and on-prem. (column-oriented)
+  a clustered OLAP database, available both, as cloud service and on-prem. (column-oriented)
 
 
 == Basic architecture
 
+In this document, we will disregard redundancy, load-balancers etc.
+for the REST service and just display it as a simple single box
+
 === PostgreSQL
+
+[plantuml,svg]
+-------------------------------------------
+left to right direction
+
+cloud client
+component "Stats API" <<REST service>> as server
+database "PostgreSQL" as db
+component "Stream processing" as stream
+
+db <-- stream
+server --> db
+client --> server
+
+-------------------------------------------
+
 === DuckDB
+
+[plantuml,svg]
+-------------------------------------------
+left to right direction
+
+cloud client
+'component "Stats API" <<REST service>> as server
+component "Stream processing" as stream
+
+component "Stats API" <<REST service>> as server {
+database "embedded DuckDB" as db
+component "Web service" as service
+
+}
+
+
+db <-- stream
+service --> db
+client --> service
+
+-------------------------------------------
+
+
+
+
+
+
+
 === ClickHouse
 
 
