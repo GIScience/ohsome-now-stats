@@ -1,0 +1,70 @@
+= Shortlisted databases for analytical queries
+:sectnums:
+:toc:
+
+
+== Introduction
+
+The purpose of this document is a comparison of, and decision for
+the database system for the `ohsome-stats` REST service.
+
+For an extended list of both, architectural dimensions and candidate databases,
+see
+xref:analytics-databases.adoc["Candidate databases for analytical use cases"].
+
+=== Architectural dimensions
+
+Here, we will focus on three important aspects, namely:
+
+* basic architecture
+* consistency / deduplication
+* performance
+* Fault-tolerance / availability
+
+
+=== Shortlisted databases
+
+From the extended list of candidate databases,
+we selected three representative open-source databases for this comparison.
+These systems are:
+
+* `PostgreSQL`:
+  the standard OLTP database and default choice for most applications (row-oriented)
+
+* `DuckDB`:
+  an emerging _embedded_ OLAP database (column-oriented)
+
+* `ClickHouse`:
+  a distributed OLAP database, available both, as cloud service and on-prem. (column-oriented)
+
+
+== Basic architecture
+
+=== PostgreSQL
+=== DuckDB
+=== ClickHouse
+
+
+
+== Consistency / deduplication
+
+=== PostgreSQL
+=== DuckDB
+=== ClickHouse
+
+
+== Performance
+
+=== PostgreSQL
+=== DuckDB
+=== ClickHouse
+
+== Fault-tolerance Scalability
+
+=== PostgreSQL
+=== DuckDB
+=== ClickHouse
+
+
+== Conclusion
+
