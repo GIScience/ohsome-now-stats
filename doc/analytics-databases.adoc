@@ -1,4 +1,8 @@
 = Candidate databases for analytical use cases
+:sectnums:
+:toc:
+
+== Introduction
 
 Both, the microservice movement and principal considerations in the realm of big data processing, have emphasized the trend to use a dedicated database for every use case.
 While there used to be central database servers shared by many services within an organization the focus is now on more independence / lower schema-coupling through separate instances.
