@@ -14,12 +14,12 @@ xref:analytics-databases.adoc["Candidate databases for analytical use cases"].
 
 === Architectural dimensions
 
-Here, we will focus on three important aspects, namely:
+Here, we will focus on four important aspects, namely:
 
 * basic architecture
-* consistency / deduplication
+* consistency and delivery guarantees
 * performance
-* Fault-tolerance / availability
+* Fault-tolerance / scalability
 
 
 === Shortlisted databases
@@ -104,12 +104,9 @@ and that database processing and web service concerns
 cannot be scaled independently (in case of very high load).
 
 
-
 === ClickHouse
 
 The basic architecture in this setup is similar to that with `PostgreSQL` except that `ClickHouse` runs in a cluster.
-
-
 
 
 
@@ -127,7 +124,6 @@ database "DB node N"
 
 }
 
-
 'db <- stream
 stream -> db
 
@@ -138,13 +134,75 @@ client --> server
 
 
 
-== Consistency / deduplication
+== Consistency and delivery guarantees
 
+Achieving _exactly-once_ semantics throughout the complete processing chain
+from the OSM planet server download process to the database is a difficult task.
+If this requirement is lowered to _at-least-once_ semantics (which is much easier to guarantee),
+we may run into a situation where the ingestion process attempts to write rows to the
+database which already exist.
+(This can happen for both, batches with single contributions as well as precomputed results.)
+In this situation a mechanism is required
+to deduplicate such entries in a consistent fashion
+or to prevent duplication in the first place.
+
+In any case, the state of the database will always be _eventually_ consistent
+with respect to the main OSM database itself, i.e. a certain lag is to be expected.
 
 
 === PostgreSQL
+
+As `PostgreSQL` is an OLTP database the standard mechanism of `Unique` primary keys
+can be employed.
+So when the ingestions process attempts to write an already-existing entry
+this attempt can just be ignored by using the following `PostgreSQL` SQL syntax:
+
+[source,SQL]
+----
+INSERT INTO table ... ON CONFLICT DO NOTHING;
+----
+
+We can just ignore the 'new' entry because it is always just a duplicate
+and never really new data.
+
+
 === DuckDB
+
+Often, OLAP databases do not support `Unique` constraints because of
+the very high volume of data involved.
+However, `DuckDB` does support this constraint in a fashion very similar to `PostgreSQL`.
+(Despite being different types of databases `PostgreSQL` and `DuckDB` share many properties.)
+
 === ClickHouse
+
+Due to the reasons mentioned above, `ClickHouse` does _not_ support `Unique` constraints,
+even its primary key is not required to be unique
+and the database can not enforce it in an ACID manner.
+
+However, deduplication can still be achieved.
+Usually, larger batches of data are inserted at once.
+Upon insert, `ClickHouse` writes several so-called parts which are subsequently _merged_
+to the main data structure (and indexed).
+`ClickHouse` has several different table engines with specific merging properties.
+In order to achieve an upsert behavior
+(which is equivalent to ignoring an upsert for identical data)
+the `ReplacingMergeTree` table engine can be used.
+
+In the given situation, up to a few hundred or thousand entries is written
+per minute, potentially distributed to a few batches (depending on proprocessing).
+While usually not recommended in heavy ingestion situations,
+it should be possilbe to force the merging and deduplication process
+for the 'rare' inserts described above.
+This can be achieved with the following `ClickHouse` SQL syntax:
+
+[source,SQL]
+----
+OPTIMIZE TABLE table DEDUPLICATE;
+----
+
+Whether this procedure can satisfy the given consistency requirements,
+needs further investigation.
+
 
 
 == Performance
@@ -153,7 +211,7 @@ client --> server
 === DuckDB
 === ClickHouse
 
-== Fault-tolerance Scalability
+== Fault-tolerance and Scalability
 
 === PostgreSQL
 === DuckDB
