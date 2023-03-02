@@ -180,6 +180,8 @@ topic_name = 'roads' AND
 contribution_type IN ('created', 'geometry-change', 'tag-and-geometry-change');
 ```
 
+Length will be reported in meters.
+
 This query should be available for all topics for which the unit `length` is specified.
 This is length of OSM features which are newly tagged as /roads/any-other-topic-name according to the [definitions above](#tag-filter-definitions-for-topics) and also considers the change in length when the geometry of existing /roads/any-other-topic-name is modified.
 Changes that only modify tags, but not the geometry of a feature, are not considered.
@@ -202,7 +204,7 @@ This is similar to the user statistics provided on [humstats](https://humstats.h
 ![img.png](img/cumulative_users_per_month.png)
 
 ### S07 Area of Features Added
-tbd
+Area will be reported in square meters.
 
 ### S08 Number of Features Modified
 tbd
@@ -305,6 +307,10 @@ where
 
 This counts contributions for the intersection of both (all) hashtags provided.
 In the example above this considers all changesets with the hashtag `#bloomberg` **and** the hashtag `#amer`.
+It seems to be more important than the **or** combination of hashtags.
+
+An example from Accenture: They use a global hashtag, e.g. `#accenture` and another hashtag `#acnfy23` for the fiscal year. They need to know all contributions which have both hashtags.
+
 
 ### F05 Filter by Union of Hashtags (OR)
 ```sql
@@ -314,6 +320,9 @@ from contributions
 where
     hashtag = '#bloomberg' or hashtag = '#amer'
 ```
+
+The only use case for this might be to account for misspelling in hashtags, e.g. to query for `#missingmaps` and `#missing_maps`.
+It seems to be less important than the **and** combination of hashtags.
 
 ### F06 Filter by Country
 tbd
