@@ -1,4 +1,4 @@
-= Shortlisted databases for analytical queries
+= DRAFT - Shortlisted databases for analytical queries
 :sectnums:
 :toc:
 
@@ -106,6 +106,35 @@ cannot be scaled independently (in case of very high load).
 
 
 === ClickHouse
+
+The basic architecture in this setup is similar to that with `PostgreSQL` except that `ClickHouse` runs in a cluster.
+
+
+
+
+
+[plantuml,svg]
+-------------------------------------------
+left to right direction
+
+cloud client
+component "Stats API" <<REST service>> as server
+component "Stream processing" as stream
+
+component "ClickHouse Database" as db {
+database "DB node 1"
+database "DB node N"
+
+}
+
+
+'db <- stream
+stream -> db
+
+server --> db
+client --> server
+
+-------------------------------------------
 
 
 
