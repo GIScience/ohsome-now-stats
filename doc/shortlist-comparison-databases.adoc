@@ -41,9 +41,18 @@ These systems are:
 == Basic architecture
 
 In this document, we will disregard redundancy, load-balancers etc.
-for the REST service and just display it as a simple single box
+for the REST service and just display it as a simple single box.
+
+The sourcing of contributions and changesets
+as well as the stream processing is also out of scope for this document
+and subsumed under the component titled `Stream processing`.
+
+
 
 === PostgreSQL
+
+PostgreSQL has a classic client-server architecture
+where the REST service communicates with the database over the network.
 
 [plantuml,svg]
 -------------------------------------------
@@ -54,13 +63,19 @@ component "Stats API" <<REST service>> as server
 database "PostgreSQL" as db
 component "Stream processing" as stream
 
-db <-- stream
+db <- stream
 server --> db
 client --> server
 
 -------------------------------------------
 
+This allows for completely independent ingestion and query processes.
+
+
 === DuckDB
+
+DuckDB is an embedded database,
+i.e. the database runs _within_ the process of the REST service.
 
 [plantuml,svg]
 -------------------------------------------
@@ -76,16 +91,17 @@ component "Web service" as service
 
 }
 
-
-db <-- stream
+db <- stream
 service --> db
 client --> service
 
 -------------------------------------------
 
-
-
-
+This setup saves network time as the database runs in-process.
+Major drawbacks include that ingestion and queries
+must be performed within the same process
+and that database processing and web service concerns
+cannot be scaled independently (in case of very high load).
 
 
 
@@ -94,6 +110,8 @@ client --> service
 
 
 == Consistency / deduplication
+
+
 
 === PostgreSQL
 === DuckDB
