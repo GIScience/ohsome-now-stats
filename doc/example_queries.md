@@ -196,6 +196,8 @@ When considering roads, this should be the fourth number on the company leaderbo
 ### S05 Absolute Number of OSM Contributors by Temporal Unit
 This is similar to the user statistics provided on [humstats](https://humstats.heigit.org/hot-priority-countries.html).
 
+Corporates have not asked for this as of now (2023-03-01).
+
 ![img.png](img/active_users_per_month.png)
 
 ### S06 Cumulative Number of OSM Contributors by Temporal Unit
@@ -203,8 +205,13 @@ This is similar to the user statistics provided on [humstats](https://humstats.h
 
 ![img.png](img/cumulative_users_per_month.png)
 
+This number is usually more frequently requested by corporates than the number of active mappers per month.
+A snapshot based approach like this is also used by HOT to track quaterly numbers for reporting.
+
 ### S07 Area of Features Added
 Area will be reported in square meters.
+
+This will be calculated similar to how we calculate Length of Features Added or Modified.
 
 ### S08 Number of Features Modified
 tbd
@@ -224,10 +231,16 @@ This is the sum of `{filter_topic}_count`.
 Assuming that a deletion results in a negative value of `-1` for `{filter_topic}_count`.
 This kind of query is useful when you want to obtain the overall number of buildings in OSM, e.g. per country.
 
+![image](https://user-images.githubusercontent.com/7045979/222404840-6d9e1ecf-1126-477c-ac78-4c4323df552d.png)
+
+
 ### S13 Cumulative Length of Features
 This is the sum of `{filter_topic}_length_delta`.
 Assuming that a deletion results in a negative value for `{filter_topic}_length_delta`
 This kind of query is useful when you want to obtain the overall length of the road network in OSM, e.g. per country.
+
+![image](https://user-images.githubusercontent.com/7045979/222405083-0f794d03-bf0e-48f3-b819-fd313ba10bf4.png)
+
 
 ### S14 Cumulative Area of Features
 This is the sum of `{filter_topic}_area_delta`.
@@ -272,8 +285,10 @@ where
 select *
 from contributions
 where
-    hashtag like `#hotosm-projet-%`
+    hashtag like `#hotosm-project-%`
 ```
+
+Probably there is no need for wildcards other than `hotosm-project-%`. So there might be an option to not support wildcard filters, when there is another way to query for all HOT Tasking Manager projects.
 
 ### F03 Filter by Time Range
 ```sql
@@ -409,7 +424,7 @@ When referring to the total number of map edits, we will play this filter defini
 | Geometry Type  | Polygon, MultiPolygon                                                                  |
 | OSM Tag Key    | building                                                                               |
 | OSM Tag Value  | yes, house, residential, detached, detached, garage, apartments, shed, hut, industrial |
-| Unit           | count, area [sqkm]                                                                     |
+| Unit           | count, area [sqm]                                                                     |
 | Validity Check | delta area < 1,000,000 square meters                                                   |
 
 These tag values account for more than 95% of all OSM features tagged with the building key according to [taginfo](https://taginfo.openstreetmap.org/keys/building#values).
@@ -422,10 +437,12 @@ These tag values account for more than 95% of all OSM features tagged with the b
 | Geometry Type  | Linestring                                                                                                                                       |
 | OSM Tag Keys   | highway                                                                                                                                          |
 | OSM Tag Values | motorway, trunk, motorway_link, trunk_link, primary, primary_link, secondary, secondary_link, tertiary, tertiary_link, unclassified, residential |
-| Unit           | count, length [km]                                                                                                                               |
+| Unit           | count, length [m]                                                                                                                               |
 | Validity Check | delta length < XXX meters                                                                                                                        |
 
 These are the principal tag values for the road network and the link roads as defined in the [OSM Wiki](https://wiki.openstreetmap.org/wiki/Map_features#Highway). Special road types (e.g. tracks, paths or footways) are not considered in this topic.
+
+Roads are not as important as buildings in regard to corporate mapping.
 
 ## Time Range and Time Interval
 * osm-stats API contains changesets from `20XX-xx-xx`
