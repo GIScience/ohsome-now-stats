@@ -1,0 +1,6 @@
+,hashtag,timerange,aggregator,OSTMSTATS,OHSOME
+0,missingmaps,"['2022-01-01', '2023-02-07']",SUM((road_km_added + road_km_modiefied)*1000) count,64317.1547021941,48040196.01230379
+1,bloomberg,"['2022-01-01', '2023-02-07']",SUM((road_km_added + road_km_modiefied)*1000) count,215.73376714908,206304.80074722602
+2,visa,"['2022-01-01', '2023-02-07']",SUM((road_km_added + road_km_modiefied)*1000) count,0.390111962623943,1190.9518395610523
+3,hotosm-project-14154,"['2022-01-01', '2023-02-07']",SUM((road_km_added + road_km_modiefied)*1000) count,2.41676739507635,1255.0061491568085
+4,hotosm-project-,"['2022-01-01', '2023-02-07']",SUM((road_km_added + road_km_modiefied)*1000) count,340471.430772229,252962704.34805146
