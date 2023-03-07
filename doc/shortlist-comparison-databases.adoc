@@ -205,11 +205,101 @@ needs further investigation.
 
 
 
-== Performance
+== Performance (PRELIMINARY RESULTS)
 
-=== PostgreSQL
-=== DuckDB
-=== ClickHouse
+In this section we compare execution times for the important stats overview query:
+
+https://github.com/GIScience/ohsome-contributions-stats/blob/main/doc/example_queries.md#s00-overview-stats
+
+The comparison is performed for three hashtags with varying frequency:
+
+* *small*: ~7K contributions, e.g. `#hotosm-project-14226`
+* *medium*: ~16M contributions, e.g. `#hotosm`
+* *large*: ~95M contributions, e.g. `#missingmaps`
+
+
+
+=== Small
+
+[cols="1,>1,>1,>1"]
+|===
+||single contributions (nested hashtags) | single contributions (unnested hashtags)  |aggregated by changeset
+
+|*PostgreSQL*
+|20ms
+|25ms
+|20ms
+
+|*ClickHouse*
+|11s +
+(without index)
+|10ms
+|6ms
+
+|*DuckDB*
+|xxms
+|xxms
+|xxms
+
+|===
+
+
+
+
+=== Medium
+
+[cols="1,>1,>1,>1"]
+|===
+||single contributions (nested hashtags) | single contributions (unnested hashtags)  |aggregated by changeset
+
+
+|*PostgreSQL*
+|14s
+|15s
+|1s
+
+|*ClickHouse*
+|10s +
+(without index)
+|170ms
+|46ms
+
+|*DuckDB*
+|xxms
+|xxms
+|xxms
+
+|===
+
+
+=== Large
+
+[cols="1,>1,>1,>1"]
+|===
+||single contributions (nested hashtags) | single contributions (unnested hashtags)  |aggregated by changeset
+
+|*PostgreSQL*
+|3m30s (Paral. Seq. Scan) +
+1m47s (Bitmap Index Scan)
+|3m10s (1m07s covering index)
+|7.5s
+
+|*ClickHouse*
+|12s +
+(without index)
+|1s
+|180ms
+
+|*DuckDB*
+|xxms
+|xxms
+|xxms
+
+
+|===
+
+
+
 
 == Fault-tolerance and Scalability
 

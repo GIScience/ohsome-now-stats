@@ -1,0 +1,66 @@
+== PostgreSQL
+
+=== Table structures
+
+Content: Contributions with at least one hashtag
+
+Indexes:
+
+    - btree: changeset_id, user_id
+    - gin(array_ops): hashtags
+
+[cols="1,>1,>1,>1"]
+|===
+||agg_by_changesets |agg_by_contribution (w/Hashtags from Parquet) | Unnested hashtags
+
+|rows
+|24.355.374 +
+(~2%)
+|458.376.326 +
+(33%)
+|1.386.476.319 +
+(100%) +
+new 1.385.903.908
+
+|size on disk w/o indexes
+|4.8 GB
+|92 GB
+|188 GB
+|===
+
+=== Query SOO performance
+
+[cols="1,>1,>1,>1"]
+|===
+||agg_by_changesets|agg_by_contribution (w/Hashtags from Parquet)| Unnested hashtags
+
+|*small* +
+e.g. #hotosm-project-14226
+|rows: 300 +
+20ms
+|rows: *7208* +
+20ms
+| rows: *7208* +
+25ms (9ms covering index)
+
+|*medium* +
+e.g. #hotosm
+|rows: ~300 K +
+1s
+|rows: *~16 M* +
+14s
+|rows:  *~16 M* +
+15s (9s covering index)
+
+
+|*large* +
+e.g. #missingmaps
+|rows: ~2.7 M +
+7.5s
+|rows: ~95 M (94.932.610) +
+3m30s (Paral. Seq. Scan) +
+1m47s (Bitmap Index Scan)
+|rows: 94.932.610 +
+3m10s (1m07s covering index)
+|===
+
