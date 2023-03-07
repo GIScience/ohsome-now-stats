@@ -234,7 +234,7 @@ The comparison is performed for three hashtags with varying frequency:
 |11s +
 (without index)
 |10ms
-|xxms
+|6ms
 
 |*DuckDB*
 |xxms
@@ -262,7 +262,7 @@ The comparison is performed for three hashtags with varying frequency:
 |10s +
 (without index)
 |170ms
-|xxms
+|46ms
 
 |*DuckDB*
 |xxms
@@ -288,7 +288,7 @@ The comparison is performed for three hashtags with varying frequency:
 |12s +
 (without index)
 |1s
-|xxms
+|180ms
 
 |*DuckDB*
 |xxms
