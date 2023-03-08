@@ -19,7 +19,7 @@ Here, we will focus on four important aspects, namely:
 * basic architecture
 * consistency and delivery guarantees
 * performance
-* Fault-tolerance / scalability
+* fault-tolerance / scalability
 
 
 === Shortlisted databases
@@ -35,7 +35,7 @@ These systems are:
   an emerging _embedded_ OLAP database (column-oriented)
 
 * `ClickHouse`:
-  a clustered OLAP database, available both, as cloud service and on-prem. (column-oriented)
+  a clustered OLAP database, available both, as cloud service and on-prem (column-oriented)
 
 
 == Basic architecture
