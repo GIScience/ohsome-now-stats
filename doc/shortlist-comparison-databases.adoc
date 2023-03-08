@@ -218,6 +218,10 @@ The comparison is performed for three hashtags with varying frequency:
 * *large*: ~95M contributions, e.g. `#missingmaps`
 
 
+A detailed account of the performance results for PostgreSQL can be found
+xref:postgres_performance.adoc[here].
+
+
 
 === Small
 
@@ -237,9 +241,9 @@ The comparison is performed for three hashtags with varying frequency:
 |6ms
 
 |*DuckDB*
-|xxms
-|xxms
-|xxms
+|-
+|5s
+|55ms
 
 |===
 
@@ -265,9 +269,9 @@ The comparison is performed for three hashtags with varying frequency:
 |46ms
 
 |*DuckDB*
-|xxms
-|xxms
-|xxms
+|-
+|5s
+|130ms
 
 |===
 
@@ -291,9 +295,9 @@ The comparison is performed for three hashtags with varying frequency:
 |180ms
 
 |*DuckDB*
-|xxms
-|xxms
-|xxms
+|-
+|5s
+|220ms
 
 
 |===
