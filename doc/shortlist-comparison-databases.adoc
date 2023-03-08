@@ -316,9 +316,14 @@ Often, both types of scalability can be combined.
 
 === PostgreSQL
 
-`PostgreSQL` can be set up in _warm standby_ mode via log shipping to achieve fault-tolerance.
-A similar form of read replication can also be used to provide horizontal scalability
-(for queries only). Vertical scaling is also possible.
+`PostgreSQL` by default has a high fault-tolerance as it implements the ACID principles for transactions using Multiversion-Concurrency-Control (MVCC) and Point-In-Time-Recovery (PITR). This is achieved by writing all intended changed to a Write-Ahead-Log (WAL) before actually saving the changes in the tables.
+
+This WAL (Log of all changes) can also be used to replicate a Database for different reasons:
+
+- _warm_standby_: high avalablity (having a backup DB)
+- _hot_standby_: high_availablity + scalability (second DB can be used for read-only aswell)
+
+Vertical scaling is also possible.
 
 === DuckDB
 
