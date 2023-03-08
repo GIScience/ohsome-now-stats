@@ -1,6 +1,11 @@
 ,hashtag,timerange,aggregator,OSTMSTATS,OHSOME
-0,missingmaps,"['2022-01-01', '2023-02-07']",SUM((road_km_added + road_km_modiefied)*1000) count,64317.1547021941,48040196.01230379
-1,bloomberg,"['2022-01-01', '2023-02-07']",SUM((road_km_added + road_km_modiefied)*1000) count,215.73376714908,206304.80074722602
-2,visa,"['2022-01-01', '2023-02-07']",SUM((road_km_added + road_km_modiefied)*1000) count,0.390111962623943,1190.9518395610523
-3,hotosm-project-14154,"['2022-01-01', '2023-02-07']",SUM((road_km_added + road_km_modiefied)*1000) count,2.41676739507635,1255.0061491568085
-4,hotosm-project-,"['2022-01-01', '2023-02-07']",SUM((road_km_added + road_km_modiefied)*1000) count,340471.430772229,252962704.34805146
+0,missingmaps,"['2017-01-01', '2017-12-31']",SUM((road_km_added + road_km_modiefied)*1000) count,349049.785069309,244544.93653950706
+1,bloomberg,"['2017-01-01', '2017-12-31']",SUM((road_km_added + road_km_modiefied)*1000) count,191.164621950524,183.2877152238845
+2,visa,"['2017-01-01', '2017-12-31']",SUM((road_km_added + road_km_modiefied)*1000) count,,8.249209031419014e-10
+3,hotosm-project-14154,"['2017-01-01', '2017-12-31']",SUM((road_km_added + road_km_modiefied)*1000) count,,
+4,hotosm-project-,"['2017-01-01', '2017-12-31']",SUM((road_km_added + road_km_modiefied)*1000) count,698220.912531153,574307.0926472959
+5,missingmaps,"['2022-01-01', '2023-02-07']",SUM((road_km_added + road_km_modiefied)*1000) count,64317.1547021941,48040.19601230379
+6,bloomberg,"['2022-01-01', '2023-02-07']",SUM((road_km_added + road_km_modiefied)*1000) count,215.73376714908,206.304800747226
+7,visa,"['2022-01-01', '2023-02-07']",SUM((road_km_added + road_km_modiefied)*1000) count,0.390111962623943,1.1909518395610523
+8,hotosm-project-14154,"['2022-01-01', '2023-02-07']",SUM((road_km_added + road_km_modiefied)*1000) count,2.41676739507635,1.2550061491568085
+9,hotosm-project-,"['2022-01-01', '2023-02-07']",SUM((road_km_added + road_km_modiefied)*1000) count,340471.430772229,252962.70434805145

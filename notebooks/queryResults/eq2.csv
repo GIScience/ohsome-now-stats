@@ -1,6 +1,11 @@
 ,hashtag,timerange,aggregator,OSTMSTATS,CHDB,OHSOME
-0,missingmaps,"['2022-01-01', '2023-02-07']",COUNT(DISTINCT user_id) count,291969,293747,292483
-1,bloomberg,"['2022-01-01', '2023-02-07']",COUNT(DISTINCT changeset_id) count,7935,8091,8055
-2,visa,"['2022-01-01', '2023-02-07']",COUNT(DISTINCT changeset_id) count,1230,1821,1820
-3,hotosm-project-14154,"['2022-01-01', '2023-02-07']",COUNT(DISTINCT changeset_id) count,108,108,108
-4,hotosm-project-,"['2022-01-01', '2023-02-07']",COUNT(DISTINCT changeset_id) count,1354439,1361236,1352537
+0,missingmaps,"['2017-01-01', '2017-12-31']",COUNT(DISTINCT user_id) count,1089181,1121267,1112610
+1,bloomberg,"['2017-01-01', '2017-12-31']",COUNT(DISTINCT changeset_id) count,1419,1429,1419
+2,visa,"['2017-01-01', '2017-12-31']",COUNT(DISTINCT changeset_id) count,0,17,14
+3,hotosm-project-14154,"['2017-01-01', '2017-12-31']",COUNT(DISTINCT changeset_id) count,0,0,0
+4,hotosm-project-,"['2017-01-01', '2017-12-31']",COUNT(DISTINCT changeset_id) count,1580420,1610104,1597126
+5,missingmaps,"['2022-01-01', '2023-02-07']",COUNT(DISTINCT changeset_id) count,291969,293747,292483
+6,bloomberg,"['2022-01-01', '2023-02-07']",COUNT(DISTINCT changeset_id) count,7935,8091,8055
+7,visa,"['2022-01-01', '2023-02-07']",COUNT(DISTINCT changeset_id) count,1230,1821,1820
+8,hotosm-project-14154,"['2022-01-01', '2023-02-07']",COUNT(DISTINCT changeset_id) count,108,108,108
+9,hotosm-project-,"['2022-01-01', '2023-02-07']",COUNT(DISTINCT changeset_id) count,1354439,1361236,1352537
