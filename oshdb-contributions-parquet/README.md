@@ -1,11 +1,10 @@
 # OhsomeStats
 
 ## Download
-- [ohsome-stats-parquet.tar](https://downloads.ohsome.org/OSHDB/.hidden/ohsome-stats/ohsome-stats-parquet.tar) 44GB
-
+- ask the team at HeiGIT if you need access to the parquet file.
 
 ## Directory Structure
-the parquet files are group by type and year.
+the parquet files (44GB in total) are group by type and year.
 ```
 ohsome-stats-parquet
 ├── type=node
