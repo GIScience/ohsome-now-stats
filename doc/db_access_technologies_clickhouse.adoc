@@ -1,0 +1,98 @@
+= Database access technologies for ClickHouse
+
+In the Java ecosystem, almost all databases can be accessed via JDBC.
+In many situations, however,
+it is useful to employ an additional library or framework on top of raw JDBC interfaces.
+
+The following table provides a brief overview of the major options.
+
+
+[cols="1,>1,>1,>1"]
+|===
+|Library/Framework | Type | Supported Languages | Comment
+
+|JDBC
+|
+|Java, Kotlin
+|very low-level, manual resource management
+
+|ClickHouse Java client
+|custom lib
+|Java, Kotlin
+|async, optimized for ClickHouse
+
+|Hibernate / JPA
+|ORM
+|Java, Kotlin
+|suitable for transactional use cases with domain classes +
+ Spring Boot support
+
+|myBatis
+|SQL-Object-Mapper
+|Java, Kotlin
+|Spring Boot support
+
+|jooq
+|DB-specific code generator and typesafe DSL
+|Java, Kotlin
+|No Clickhouse support +
+Spring Boot support
+
+|KotliQuery
+|lightweight JDBC Wrapper
+|Kotlin
+|works directly with custom SQL
+
+
+|Jetbrains Exposed
+|typesafe SQL wrapping DSL, lightweight DAO
+|Kotlin
+|no ClickHouse support
+
+|Ktorm
+|lightweight ORM, typesafe DSL
+|Kotlin
+|no ClickHouse support
+
+|sqldelight
+|typesafe SQL generator
+|Kotlin
+|no ClickHouse support
+
+|Jdbi 3
+|lightweight JDBC Wrapper
+|Java, Kotlin
+| works directly with custom SQL +
+extensions for JUnit testing, PostGIS, Kotlin
+
+|Spring JDBCTemplate
+|low-level JDBC wrapper
+|Java, Kotlin
+|Spring integration, Transactions
+
+|Spring Data JDBC
+|ORM
+|Java, Kotlin
+|no ClickHouse dialect
+
+
+|===
+
+
+== References
+
+* https://clickhouse.com/docs/en/integrations/language-clients/java/client
+* https://hibernate.org
+* https://blog.mybatis.org
+* https://www.jooq.org
+* https://github.com/seratch/kotliquery
+* https://github.com/JetBrains/Exposed
+* https://www.ktorm.org
+* https://cashapp.github.io/sqldelight/
+* https://jdbi.org
+* https://spring.io/guides/gs/relational-data-access/
+* https://docs.spring.io/spring-data/jdbc/docs/current/reference/html/
+
+
+
+
