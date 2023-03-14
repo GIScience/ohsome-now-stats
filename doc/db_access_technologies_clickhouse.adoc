@@ -12,14 +12,16 @@ The following table provides a brief overview of the major options.
 |Library/Framework | Type | Supported Languages | Comment
 
 |JDBC
-|
+|foundation library
 |Java, Kotlin
-|very low-level, manual resource management
+|official standard, +
+very low-level, manual resource management
 
 |ClickHouse Java client
 |custom lib
 |Java, Kotlin
-|async, optimized for ClickHouse
+|optimized for, and limited to ClickHouse, +
+async
 
 |Hibernate / JPA
 |ORM
