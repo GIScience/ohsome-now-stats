@@ -81,6 +81,13 @@ extensions for JUnit testing, PostGIS, Kotlin
 |===
 
 
+While all of these libraries can be used for writing to and reading from databases,
+the primary concern is support for queries.
+The data ingestion might also be accomplished by an existing connector,
+i.e. Kafka, Spark, or Flink sink connector.
+
+
+
 == References
 
 * https://clickhouse.com/docs/en/integrations/language-clients/java/client
