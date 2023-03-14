@@ -62,7 +62,7 @@ Spring Boot support
 |no ClickHouse support
 
 |Jdbi 3
-|lightweight JDBC Wrapper
+|lightweight JDBC Wrapper and declarative DAO
 |Java, Kotlin
 | works directly with custom SQL +
 extensions for JUnit testing, PostGIS, Kotlin
