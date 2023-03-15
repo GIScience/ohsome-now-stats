@@ -88,6 +88,12 @@ extensions for JUnit testing, PostGIS, Kotlin
 |Java, Kotlin
 |no ClickHouse dialect
 
+|13
+|clickhouse4j
+|JDBC
+|Java, Kotlin
+|"Lighter and faster alternative for the official ClickHouse JDBC driver"
+
 
 |===
 
@@ -112,6 +118,8 @@ i.e. Kafka, Spark, or Flink sink connector.
 * https://jdbi.org
 * https://spring.io/guides/gs/relational-data-access/
 * https://docs.spring.io/spring-data/jdbc/docs/current/reference/html/
+* https://github.com/blynkkk/clickhouse4j
+
 
 
 
