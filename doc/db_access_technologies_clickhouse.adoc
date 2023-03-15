@@ -7,71 +7,82 @@ it is useful to employ an additional library or framework on top of raw JDBC int
 The following table provides a brief overview of the major options.
 
 
-[cols="1,>1,>1,>1"]
+[cols=">1,1,>1,>1,>1"]
 |===
-|Library/Framework | Type | Supported Languages | Comment
+||Library/Framework | Type | Supported Languages | Comment
 
+|1
 |JDBC
 |foundation library
 |Java, Kotlin
 |official standard, +
 very low-level, manual resource management
 
+|2
 |ClickHouse Java client
 |custom lib
 |Java, Kotlin
 |optimized for, and limited to ClickHouse, +
 async
 
+|3
 |Hibernate / JPA
 |ORM
 |Java, Kotlin
 |suitable for transactional use cases with domain classes +
  Spring Boot support
 
+|4
 |myBatis
 |SQL-Object-Mapper
 |Java, Kotlin
 |Spring Boot support
 
+|5
 |jooq
 |DB-specific code generator and typesafe DSL
 |Java, Kotlin
 |No Clickhouse support +
 Spring Boot support
 
+|6
 |KotliQuery
 |lightweight JDBC Wrapper
 |Kotlin
 |works directly with custom SQL
 
-
+|7
 |Jetbrains Exposed
 |typesafe SQL wrapping DSL, lightweight DAO
 |Kotlin
 |no ClickHouse support
 
+|8
 |Ktorm
 |lightweight ORM, typesafe DSL
 |Kotlin
 |no ClickHouse support
 
+|9
 |sqldelight
 |typesafe SQL generator
 |Kotlin
 |no ClickHouse support
 
+|10
 |Jdbi 3
 |lightweight JDBC Wrapper and declarative DAO
 |Java, Kotlin
 | works directly with custom SQL +
 extensions for JUnit testing, PostGIS, Kotlin
 
+|11
 |Spring JDBCTemplate
 |low-level JDBC wrapper
 |Java, Kotlin
 |Spring integration, Transactions
 
+|12
 |Spring Data JDBC
 |ORM
 |Java, Kotlin
