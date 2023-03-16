@@ -15,7 +15,7 @@ The following tables provide a brief overview of the major options.
 
 
 |1
-|ClickHouse Java client
+|official ClickHouse Java client
 |custom lib
 |Java, Kotlin
 |optimized for, and limited to ClickHouse, +
@@ -31,10 +31,10 @@ async
 ||Library/Framework | Type | Supported Languages | Comment
 
 |2
+|official ClickHouse driver
 |JDBC
-|foundation library
 |Java, Kotlin
-|official standard, +
+|standardized, +
 very low-level, manual resource management
 
 
@@ -45,10 +45,10 @@ very low-level, manual resource management
 |"Lighter and faster alternative for the official ClickHouse JDBC driver"
 
 |4
-|reactive
+|official ClickHouse reactive driver
 |R2DBC
 |Java, Kotlin
-|"Lighter and faster alternative for the official ClickHouse JDBC driver"
+|standardized, for reactive architectures
 
 
 |===
