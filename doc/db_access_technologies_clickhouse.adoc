@@ -35,7 +35,7 @@ async
 |JDBC
 |Java, Kotlin
 |standardized, +
-very low-level, manual resource management
+low-level, manual resource management
 
 
 |3
@@ -147,7 +147,7 @@ i.e. Kafka, Spark, or Flink sink connector.
 * use a JDBC driver (2) or (3) as foundation
 * if we change to a reactive architecture, use the R2DBC driver (4)
 * use Jdbi (12) as an additional library
-  because it is applicable ftom Java _and_ Kotlin (unlike (8))
+  because it is applicable from Java _and_ Kotlin (unlike (8))
 
 == References
 
