@@ -142,8 +142,12 @@ i.e. Kafka, Spark, or Flink sink connector.
 
 == Decision
 
-TODO
-
+* do not use the proprietary ClickHouse Java client (1)
+  because it makes a potential migration expensive
+* use a JDBC driver (2) or (3) as foundation
+* if we change to a reactive architecture, use the R2DBC driver (4)
+* use Jdbi (12) as an additional library
+  because it is applicable ftom Java _and_ Kotlin (unlike (8))
 
 == References
 
