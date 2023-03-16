@@ -4,96 +4,132 @@ In the Java ecosystem, almost all databases can be accessed via JDBC.
 In many situations, however,
 it is useful to employ an additional library or framework on top of raw JDBC interfaces.
 
-The following table provides a brief overview of the major options.
+The following tables provide a brief overview of the major options.
 
+
+=== Proprietary stand-alone Solution
 
 [cols=">1,1,>1,>1,>1"]
 |===
 ||Library/Framework | Type | Supported Languages | Comment
 
-|1
-|JDBC
-|foundation library
-|Java, Kotlin
-|official standard, +
-very low-level, manual resource management
 
-|2
+|1
 |ClickHouse Java client
 |custom lib
 |Java, Kotlin
 |optimized for, and limited to ClickHouse, +
 async
 
+|===
+
+=== Standardized Drivers: JDBC and R2DBC
+
+
+[cols=">1,1,>1,>1,>1"]
+|===
+||Library/Framework | Type | Supported Languages | Comment
+
+|2
+|JDBC
+|foundation library
+|Java, Kotlin
+|official standard, +
+very low-level, manual resource management
+
+
 |3
+|clickhouse4j
+|JDBC
+|Java, Kotlin
+|"Lighter and faster alternative for the official ClickHouse JDBC driver"
+
+|4
+|reactive
+|R2DBC
+|Java, Kotlin
+|"Lighter and faster alternative for the official ClickHouse JDBC driver"
+
+
+|===
+
+
+
+
+
+
+
+
+=== Additional Tooling
+
+
+[cols=">1,1,>1,>1,>1"]
+|===
+||Library/Framework | Type | Supported Languages | Comment
+
+
+|5
 |Hibernate / JPA
 |ORM
 |Java, Kotlin
 |suitable for transactional use cases with domain classes +
  Spring Boot support
 
-|4
+|6
 |myBatis
 |SQL-Object-Mapper
 |Java, Kotlin
 |Spring Boot support
 
-|5
+|7
 |jooq
 |DB-specific code generator and typesafe DSL
 |Java, Kotlin
 |No Clickhouse support +
 Spring Boot support
 
-|6
+|8
 |KotliQuery
 |lightweight JDBC Wrapper
 |Kotlin
 |works directly with custom SQL
 
-|7
+|9
 |Jetbrains Exposed
 |typesafe SQL wrapping DSL, lightweight DAO
 |Kotlin
 |no ClickHouse support
 
-|8
+|10
 |Ktorm
 |lightweight ORM, typesafe DSL
 |Kotlin
 |no ClickHouse support
 
-|9
+|11
 |sqldelight
 |typesafe SQL generator
 |Kotlin
 |no ClickHouse support
 
-|10
+|12
 |Jdbi 3
 |lightweight JDBC Wrapper and declarative DAO
 |Java, Kotlin
 | works directly with custom SQL +
 extensions for JUnit testing, PostGIS, Kotlin
 
-|11
+|13
 |Spring JDBCTemplate
 |low-level JDBC wrapper
 |Java, Kotlin
 |Spring integration, Transactions
 
-|12
+|14
 |Spring Data JDBC
 |ORM
 |Java, Kotlin
 |no ClickHouse dialect
-
-|13
-|clickhouse4j
-|JDBC
-|Java, Kotlin
-|"Lighter and faster alternative for the official ClickHouse JDBC driver"
-
 
 |===
 
@@ -103,6 +139,10 @@ the primary concern is support for queries.
 The data ingestion might also be accomplished by an existing connector,
 i.e. Kafka, Spark, or Flink sink connector.
 
+
+== Decision
+
+TODO
 
 
 == References
