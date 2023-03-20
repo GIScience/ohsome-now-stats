@@ -11,6 +11,8 @@ OSM Contributors:
 * [S01 Number of OSM Contributors](#s01-number-of-osm-contributors)
 * [S05 Absolute Number of OSM Contributors by Temporal Unit](#s05-absolute-number-of-osm-contributors-by-temporal-unit)
 * [S06 Cumulative Number of OSM Contributors by Temporal Unit](#s06-cumulative-number-of-osm-contributors-by-temporal-unit)
+* [S15 Survival Rate](#s15-survival-rate)
+
 
 OSM Features Count:
 * [S02 Number of Features Edited (e.g. total map edits)](#s02-total-map-edits)
@@ -247,6 +249,8 @@ This is the sum of `{filter_topic}_area_delta`.
 Assuming that a deletion results in a negative value for `{filter_topic}_area_delta`.
 This kind of query is useful when you want to obtain the overall length of the road network in OSM, e.g. per country.
 
+### S15 Survival Rate 
+retention rate for users for a given hashtag. How many users mapped more than x days using a particular hashtag.
 
 ### S99 Number of OSM Changesets (optional)
 ```sql

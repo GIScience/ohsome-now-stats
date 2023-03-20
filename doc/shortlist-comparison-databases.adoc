@@ -19,7 +19,7 @@ Here, we will focus on four important aspects, namely:
 * basic architecture
 * consistency and delivery guarantees
 * performance
-* Fault-tolerance / scalability
+* fault-tolerance / scalability
 
 
 === Shortlisted databases
@@ -35,7 +35,7 @@ These systems are:
   an emerging _embedded_ OLAP database (column-oriented)
 
 * `ClickHouse`:
-  a clustered OLAP database, available both, as cloud service and on-prem. (column-oriented)
+  a clustered OLAP database, available both, as cloud service and on-prem (column-oriented)
 
 
 == Basic architecture
@@ -218,6 +218,10 @@ The comparison is performed for three hashtags with varying frequency:
 * *large*: ~95M contributions, e.g. `#missingmaps`
 
 
+A detailed account of the performance results for PostgreSQL can be found
+xref:postgres_performance.adoc[here].
+
+
 
 === Small
 
@@ -237,9 +241,9 @@ The comparison is performed for three hashtags with varying frequency:
 |6ms
 
 |*DuckDB*
-|xxms
-|xxms
-|xxms
+|-
+|5s
+|55ms
 
 |===
 
@@ -265,9 +269,9 @@ The comparison is performed for three hashtags with varying frequency:
 |46ms
 
 |*DuckDB*
-|xxms
-|xxms
-|xxms
+|-
+|5s
+|130ms
 
 |===
 
@@ -291,9 +295,9 @@ The comparison is performed for three hashtags with varying frequency:
 |180ms
 
 |*DuckDB*
-|xxms
-|xxms
-|xxms
+|-
+|5s
+|220ms
 
 
 |===
@@ -303,7 +307,7 @@ The comparison is performed for three hashtags with varying frequency:
 
 == Fault-tolerance and Scalability
 
-_Fault-tolerance_ refers to the resilience of a system in the presents of (component) failures.
+_Fault-tolerance_ refers to the resilience of a system in the presence of (component) failures.
 _Scalability_ can typically be achieved in two ways:
 Vertical scalability is achieved by increasing the resources of a single machine;
 horizontal scalability uses a larger cluster of machines instead of a more powerful machine.
@@ -312,9 +316,14 @@ Often, both types of scalability can be combined.
 
 === PostgreSQL
 
-`PostgreSQL` can be set up in _warm standby_ mode via log shipping to achieve fault-tolerance.
-A similar form of read replication can also be used to provide horizontal scalability
-(for queries only). Vertical scaling is also possible.
+`PostgreSQL` by default has a high fault-tolerance as it implements the ACID principles for transactions using Multiversion-Concurrency-Control (MVCC) and Point-In-Time-Recovery (PITR). This is achieved by writing all intended changed to a Write-Ahead-Log (WAL) before actually saving the changes in the tables.
+
+This WAL (Log of all changes) can also be used to replicate a Database for different reasons:
+
+- _warm_standby_: high avalablity (having a backup DB)
+- _hot_standby_: high_availablity + scalability (second DB can be used for read-only aswell)
+
+Vertical scaling is also possible.
 
 === DuckDB
 

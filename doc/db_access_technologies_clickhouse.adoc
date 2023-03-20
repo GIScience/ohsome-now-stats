@@ -1,0 +1,170 @@
+= Database access technologies for ClickHouse
+
+In the Java ecosystem, almost all databases can be accessed via JDBC.
+In many situations, however,
+it is useful to employ an additional library or framework on top of raw JDBC interfaces.
+
+The following tables provide a brief overview of the major options.
+
+
+=== Proprietary stand-alone Solution
+
+[cols=">1,1,>1,>1,>1"]
+|===
+||Library/Framework | Type | Supported Languages | Comment
+
+
+|1
+|official ClickHouse Java client
+|custom lib
+|Java, Kotlin
+|optimized for, and limited to ClickHouse, +
+async
+
+|===
+
+=== Standardized Drivers: JDBC and R2DBC
+
+
+[cols=">1,1,>1,>1,>1"]
+|===
+||Library/Framework | Type | Supported Languages | Comment
+
+|2
+|official ClickHouse driver
+|JDBC
+|Java, Kotlin
+|standardized, +
+low-level, manual resource management
+
+
+|3
+|clickhouse4j
+|JDBC
+|Java, Kotlin
+|"Lighter and faster alternative for the official ClickHouse JDBC driver"
+
+|4
+|official ClickHouse reactive driver
+|R2DBC
+|Java, Kotlin
+|standardized, for reactive architectures
+
+
+|===
+
+
+
+
+
+
+
+
+=== Additional Tooling
+
+
+[cols=">1,1,>1,>1,>1"]
+|===
+||Library/Framework | Type | Supported Languages | Comment
+
+
+|5
+|Hibernate / JPA
+|ORM
+|Java, Kotlin
+|suitable for transactional use cases with domain classes +
+ Spring Boot support
+
+|6
+|myBatis
+|SQL-Object-Mapper
+|Java, Kotlin
+|Spring Boot support
+
+|7
+|jooq
+|DB-specific code generator and typesafe DSL
+|Java, Kotlin
+|No Clickhouse support +
+Spring Boot support
+
+|8
+|KotliQuery
+|lightweight JDBC Wrapper
+|Kotlin
+|works directly with custom SQL
+
+|9
+|Jetbrains Exposed
+|typesafe SQL wrapping DSL, lightweight DAO
+|Kotlin
+|no ClickHouse support
+
+|10
+|Ktorm
+|lightweight ORM, typesafe DSL
+|Kotlin
+|no ClickHouse support
+
+|11
+|sqldelight
+|typesafe SQL generator
+|Kotlin
+|no ClickHouse support
+
+|12
+|Jdbi 3
+|lightweight JDBC Wrapper and declarative DAO
+|Java, Kotlin
+| works directly with custom SQL +
+extensions for JUnit testing, PostGIS, Kotlin
+
+|13
+|Spring JDBCTemplate
+|low-level JDBC wrapper
+|Java, Kotlin
+|Spring integration, Transactions
+
+|14
+|Spring Data JDBC
+|ORM
+|Java, Kotlin
+|no ClickHouse dialect
+
+|===
+
+
+While all of these libraries can be used for writing to and reading from databases,
+the primary concern is support for queries.
+The data ingestion might also be accomplished by an existing connector,
+i.e. Kafka, Spark, or Flink sink connector.
+
+
+== Decision
+
+* do not use the proprietary ClickHouse Java client (1)
+  because it makes a potential migration expensive
+* use a JDBC driver (2) or (3) as foundation
+* if we change to a reactive architecture, use the R2DBC driver (4)
+* use Jdbi (12) as an additional library
+  because it is applicable from Java _and_ Kotlin (unlike (8))
+
+== References
+
+* https://clickhouse.com/docs/en/integrations/language-clients/java/client
+* https://hibernate.org
+* https://blog.mybatis.org
+* https://www.jooq.org
+* https://github.com/seratch/kotliquery
+* https://github.com/JetBrains/Exposed
+* https://www.ktorm.org
+* https://cashapp.github.io/sqldelight/
+* https://jdbi.org
+* https://spring.io/guides/gs/relational-data-access/
+* https://docs.spring.io/spring-data/jdbc/docs/current/reference/html/
+* https://github.com/blynkkk/clickhouse4j
+
+
+
+
+
