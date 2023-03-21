@@ -288,11 +288,17 @@ xref:postgres_performance.adoc[here].
 |3m10s (1m07s covering index)
 |7.5s
 
-|*ClickHouse*
+|*ClickHouse Cloud*
 |12s +
 (without index)
 |1s
-|180ms
+|600ms
+
+|*ClickHouse on-prem*
+|1s +
+(without index)
+|400ms
+|160ms
 
 |*DuckDB*
 |-
