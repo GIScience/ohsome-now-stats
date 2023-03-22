@@ -5,10 +5,10 @@
 ### Stats
 | hashtag              | timerange                    | CHDB      | OSMSTATS  | OHSOME    |
 |----------------------|------------------------------|-----------|-----------|-----------|
-| missingmaps          | ['2017-01-01', '2017-12-31'] | 1121,267  | 1,089,181 | 1,112,610 |
+| MissingMaps          | ['2017-01-01', '2017-12-31'] | 1121,267  | 1,089,181 | 1,112,610 |
 | bloomberg            | ['2017-01-01', '2017-12-31'] | 1,429     | 1,419     | 1,419     |
 | hotosm-project-*     | ['2017-01-01', '2017-12-31'] | 1,610,104 | 1,580,420 | 1,597,126 |
-| missingmaps          | ['2022-01-01', '2023-02-07'] | 293,747   | 291,969   | 292,483   |
+| MissingMaps          | ['2022-01-01', '2023-02-07'] | 293,747   | 291,969   | 292,483   |
 | bloomberg            | ['2022-01-01', '2023-02-07'] | 8,091     | 7,935     | 8,055     |
 | visa                 | ['2022-01-01', '2023-02-07'] | 1,821     | 1,230     | 1,820     |
 | hotosm-project-14154 | ['2022-01-01', '2023-02-07'] | 108       | 108       | 108       |
@@ -38,7 +38,7 @@ const extractHashtags = tags => {
 Yet a changesets tags element, can contain a seperate hashtags, attribute, which is generated in most cases by the editor.
 Incase the user decides to assing, tha hashtags independently from the comment attribute, the consequence will be that the OSM STATS API will miss these.
 
-In case for the missingmaps hashtag, this e.g. accounts for roughly half of the missing changesets.
+In case for the MissingMaps hashtag, this e.g. accounts for roughly half of the missing changesets.
 
 #### Applied Filters
 The ChangesetDB does not apply any kind of filter and therefore includes all changesets into the DB.
@@ -63,10 +63,10 @@ The counts for individual users diverge less, in comparison to the OSM STATS
 
 | hashtag              | timerange                    | CHDB   | OSTMSTATS | OHSOME |
 |----------------------|------------------------------|--------|-----------|--------|
-| missingmaps          | ['2017-01-01', '2017-12-31'] | 28,446 | 28,240    | 28,395 |
+| MissingMaps          | ['2017-01-01', '2017-12-31'] | 28,446 | 28,240    | 28,395 |
 | bloomberg            | ['2017-01-01', '2017-12-31'] | 137    | 137       | 137    |
 | hotosm-project-*     | ['2017-01-01', '2017-12-31'] | 42,901 | 42,550    | 42,818 |
-| missingmaps          | ['2022-01-01', '2023-02-07'] | 11,793 | 11,636    | 11,774 |
+| MissingMaps          | ['2022-01-01', '2023-02-07'] | 11,793 | 11,636    | 11,774 |
 | bloomberg            | ['2022-01-01', '2023-02-07'] | 572    | 550       | 572    |
 | visa                 | ['2022-01-01', '2023-02-07'] | 175    | 122       | 175    |
 | hotosm-project-14154 | ['2022-01-01', '2023-02-07'] | 15     | 15        | 15     |
@@ -107,10 +107,10 @@ Since the OSM STATS API uses the absolute value of the diffrence between modific
 #### creations
 | hashtag              | timerange                    | creationsBuildingsOSMSTATS | creationsBuildingsOHSOME | creationBuildingsAbsDiffrence | creationBuildingsRelDiffrence |
 |----------------------|------------------------------|----------------------------|--------------------------|-------------------------------|-------------------------------|
-| missingmaps          | ['2017-01-01', '2017-12-31'] | 15,562,631                 | 15,651,562               | -88,931                       | 0.994                         |
+| MissingMaps          | ['2017-01-01', '2017-12-31'] | 15,562,631                 | 15,651,562               | -88,931                       | 0.994                         |
 | bloomberg            | ['2017-01-01', '2017-12-31'] | 8,958                      | 9,079                    | -121                          | 0.986                         |
 | hotosm-project-*     | ['2017-01-01', '2017-12-31'] | 23,162,134                 | 25,234,051               | -2,071,917                    | 0.917                         |
-| missingmaps          | ['2022-01-01', '2023-02-07'] | 4,768,705                  | 4,989,039                | -220,334                      | 0.955                         |
+| MissingMaps          | ['2022-01-01', '2023-02-07'] | 4,768,705                  | 4,989,039                | -220,334                      | 0.955                         |
 | bloomberg            | ['2022-01-01', '2023-02-07'] | 63,940                     | 64,201                   | -261                          | 0.995                         |
 | visa                 | ['2022-01-01', '2023-02-07'] | 6,074                      | 6,461                    | -387                          | 0.940                         |
 | hotosm-project-14154 | ['2022-01-01', '2023-02-07'] | 1,460                      | 1,460                    | 0                             | 1                             |
@@ -119,26 +119,26 @@ Since the OSM STATS API uses the absolute value of the diffrence between modific
 #### modifications
 | hashtag              | timerange                    | modificationsBuildingsOSMSTATS | modificationsBuildingsOHSOME | modificationsBuildingsAbsDiffrence | modificationsBuildingsRelDiffrence |
 |----------------------|------------------------------|--------------------------------|------------------------------|------------------------------------|------------------------------------|
-| missingmaps          | ['2017-01-01', '2017-12-31'] | 3,145,157                      | 2,760,304                    | 384,853                            | 1.139                              |
+| MissingMaps          | ['2017-01-01', '2017-12-31'] | 3,145,157                      | 2,760,304                    | 384,853                            | 1.139                              |
 | bloomberg            | ['2017-01-01', '2017-12-31'] | 683                            | 537                          | 146                                | 1.271                              |
 | hotosm-project-*     | ['2017-01-01', '2017-12-31'] | 4,369,281                      | 4,143,332                    | 225,949                            | 1.054                              |
-| missingmaps          | ['2022-01-01', '2023-02-07'] | 364,686                        | 1,938,736                    | -1,574,050                         | 0.188                              |
+| MissingMaps          | ['2022-01-01', '2023-02-07'] | 364,686                        | 1,938,736                    | -1,574,050                         | 0.188                              |
 | bloomberg            | ['2022-01-01', '2023-02-07'] | 3,570                          | 17,018                       | -13,448                            | 0.209                              |
 | visa                 | ['2022-01-01', '2023-02-07'] | 270                            | 468                          | -198                               | 0.576                              |
 | hotosm-project-14154 | ['2022-01-01', '2023-02-07'] | 19                             | 519                          | -500                               | 0.036                              |
 | hotosm-project-*     | ['2022-01-01', '2023-02-07'] | 1,749,869                      | 7,446,845                    | -5,696,976                         | 0.234                              |
 
-![](/home/clemens/Desktop/HeiGit/Projects HIWI/ohsomeNOW/ohsome-contributions-stats/notebooks/queryResults/missingMapsBuildingMods.png)
+![](./queryResults/missingMapsBuildingMods.png)
 ### road count
 
 #### creations
 
 | hashtag              | timerange                    | creationsroadsOSMSTATS | creationsroadsOHSOME | creationroadsAbsDifference | creationroadsRelDiffrence |
 |----------------------|------------------------------|------------------------|----------------------|---------------------------|---------------------------|
-| missingmaps          | ['2017-01-01', '2017-12-31'] | 816,890                | 825,439              | -8,549                    | 0.989                     |
+| MissingMaps          | ['2017-01-01', '2017-12-31'] | 816,890                | 825,439              | -8,549                    | 0.989                     |
 | bloomberg            | ['2017-01-01', '2017-12-31'] | 394                    | 399                  | -5                        | 0.987                     |
 | hotosm-project-*     | ['2017-01-01', '2017-12-31'] | 1,458,623              | 1,688,745            | -230,122                  | 0.863                     |
-| missingmaps          | ['2022-01-01', '2023-02-07'] | 108,869                | 120,244              | -11,375                   | 0.905                     |
+| MissingMaps          | ['2022-01-01', '2023-02-07'] | 108,869                | 120,244              | -11,375                   | 0.905                     |
 | bloomberg            | ['2022-01-01', '2023-02-07'] | 387                    | 404                  | -17                       | 0.957                     |
 | visa                 | ['2022-01-01', '2023-02-07'] | 0                      | 0                    | 0                         |                           |
 | hotosm-project-14154 | ['2022-01-01', '2023-02-07'] | 2                      | 2                    | 0                         | 1                         |
@@ -147,10 +147,10 @@ Since the OSM STATS API uses the absolute value of the diffrence between modific
 #### modifications
 | hashtag              | timerange                    | moodificationsroadsOSMSTATS | modificationsroadsOHSOME | modificationsroadsAbsDifference | modificationsroadsRelDiffrence |
 |----------------------|------------------------------|-----------------------------|--------------------------|---------------------------------|--------------------------------|
-| missingmaps          | ['2017-01-01', '2017-12-31'] | 896,427                     | 744,845                  | 151,582                         | 1.203                          |
+| MissingMaps          | ['2017-01-01', '2017-12-31'] | 896,427                     | 744,845                  | 151,582                         | 1.203                          |
 | bloomberg            | ['2017-01-01', '2017-12-31'] | 123                         | 113                      | 10                              | 1.088                          |
 | hotosm-project-*     | ['2017-01-01', '2017-12-31'] | 1,767,305                   | 1,651,445                | 115,860                         | 1.070                          |
-| missingmaps          | ['2022-01-01', '2023-02-07'] | 177,086                     | 221,771                  | -44,685                         | 0.798                          |
+| MissingMaps          | ['2022-01-01', '2023-02-07'] | 177,086                     | 221,771                  | -44,685                         | 0.798                          |
 | bloomberg            | ['2022-01-01', '2023-02-07'] | 1,249                       | 1,488                    | -239                            | 0.839                          |
 | visa                 | ['2022-01-01', '2023-02-07'] | 210                         | 247                      | -37                             | 0.850                          |
 | hotosm-project-14154 | ['2022-01-01', '2023-02-07'] | 10                          | 11                       | -1                              | 0.909                          |
@@ -161,12 +161,12 @@ Since the OSM STATS API uses the absolute value of the diffrence between modific
 #### creations
 | hashtag              | timerange                    | creationsroadsOSMSTATS | creationsroadsOHSOME | creationroadsAbsDifference | creationroadsRelDifference |
 |----------------------|------------------------------|------------------------|----------------------|---------------------------|----------------------------|
-| missingmaps          | ['2017-01-01', '2017-12-31'] | 275,551.886            | 282,821.936          | -7,270.050                | 0.974                      |
+| MissingMaps          | ['2017-01-01', '2017-12-31'] | 275,551.886            | 282,821.936          | -7,270.050                | 0.974                      |
 | bloomberg            | ['2017-01-01', '2017-12-31'] | 187.099                | 188.243              | -1.143                    | 0.994                      |
 | visa                 | ['2017-01-01', '2017-12-31'] | 0.000                  | 0.000                | 0.000                     |                            |
 | hotosm-project-14154 | ['2017-01-01', '2017-12-31'] | 0.000                  | 0.000                | 0.000                     |                            |
 | hotosm-project-*     | ['2017-01-01', '2017-12-31'] | 538,497.595            | 614,547.683          | -76,050.088               | 0.876                      |
-| missingmaps          | ['2022-01-01', '2023-02-07'] | 41,817.656             | 46,055.171           | -4,237.515                | 0.908                      |
+| MissingMaps          | ['2022-01-01', '2023-02-07'] | 41,817.656             | 46,055.171           | -4,237.515                | 0.908                      |
 | bloomberg            | ['2022-01-01', '2023-02-07'] | 168.188                | 176.879              | -8.691                    | 0.951                      |
 | visa                 | ['2022-01-01', '2023-02-07'] | 0.000                  | 0.000                | 0.000                     |                            |
 | hotosm-project-14154 | ['2022-01-01', '2023-02-07'] | 1.755                  | 1.753                | 0.002                     | 1.001                      |
@@ -175,12 +175,12 @@ Since the OSM STATS API uses the absolute value of the diffrence between modific
 #### modifications
 | hashtag              | timerange                    | moodificationsroadsOSMSTATS | modificationsroadsOHSOME | modificationsroadsAbsDiffrence | modificationsroadsRelDiffrence |
 |----------------------|------------------------------|-----------------------------|--------------------------|--------------------------------|--------------------------------|
-| missingmaps          | ['2017-01-01', '2017-12-31'] | 73,497.899                  | 71,246.995               | 2,250.904                      | 1.032                          |
+| MissingMaps          | ['2017-01-01', '2017-12-31'] | 73,497.899                  | 71,246.995               | 2,250.904                      | 1.032                          |
 | bloomberg            | ['2017-01-01', '2017-12-31'] | 4.065                       | 3.772                    | 0.293                          | 1.078                          |
 | visa                 | ['2017-01-01', '2017-12-31'] | 0.000                       | 0.000                    | 0.000                          |                                |
 | hotosm-project-14154 | ['2017-01-01', '2017-12-31'] | 0.000                       | 0.000                    | 0.000                          |                                |
 | hotosm-project-*     | ['2017-01-01', '2017-12-31'] | 159,723.318                 | 168,875.290              | -9,151.972                     | 0.946                          |
-| missingmaps          | ['2022-01-01', '2023-02-07'] | 22,475.689                  | 15,921.491               | 6,554.198                      | 1.412                          |
+| MissingMaps          | ['2022-01-01', '2023-02-07'] | 22,475.689                  | 15,921.491               | 6,554.198                      | 1.412                          |
 | bloomberg            | ['2022-01-01', '2023-02-07'] | 47.546                      | 44.923                   | 2.623                          | 1.058                          |
 | visa                 | ['2022-01-01', '2023-02-07'] | 0.390                       | 0.322                    | 0.068                          | 1.211                          |
 | hotosm-project-14154 | ['2022-01-01', '2023-02-07'] | 0.662                       | 0.597                    | 0.065                          | 1.108                          |
