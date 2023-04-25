@@ -44,7 +44,7 @@ header = html.Div([
     html.Div([
         html.H1(children='OhsomeNOW Dashboard',
                 style={'textAlign': 'center'}
-                ),],
+                ), ],
         className="bg-primary text-white p-4 mb-2 text-center",
 
         style={'padding-top': '1%'}
@@ -56,17 +56,18 @@ header = html.Div([
             html.Div([
                 dbc.Row([
                     dbc.Stack(
-                        [dbc.Input(id="inputHashtag", type="text", placeholder="e.g #MissingMaps", debounce=True,className="w-25"),
-                        dcc.DatePickerRange(
-                                    start_date=df['date'].min().to_pydatetime(),
-                                    end_date=df['date'].max().to_pydatetime(),
-                                    display_format='D MMM YYYY HH',
-                                    id='timepicker'),
+                        [dbc.Input(id="inputHashtag", type="text", placeholder="e.g #MissingMaps", debounce=True,
+                                   className="w-25"),
+                         dcc.DatePickerRange(
+                             start_date=df['date'].min().to_pydatetime(),
+                             end_date=df['date'].max().to_pydatetime(),
+                             display_format='D MMM YYYY HH',
+                             id='timepicker'),
 
-                        dcc.Dropdown(['auto', 'monthly', 'daily', 'hourly', "minutely"],"auto", id='interval'),
+                         dcc.Dropdown(['auto', 'monthly', 'daily', 'hourly', "minutely"], "auto", id='interval'),
 
-                        dbc.Button('Apply', id='apply-button', n_clicks=0,color="primary")
-                    ],direction="horizontal",gap=1)
+                         dbc.Button('Apply', id='apply-button', n_clicks=0, color="primary")
+                         ], direction="horizontal", gap=1)
                 ])
             ])
         ])
@@ -74,12 +75,12 @@ header = html.Div([
 ])
 
 tab_1 = html.Div([
-            dbc.Row([
-                dbc.Col([
-                    dash_table.DataTable([{col: df[col].sum() for col in cols}], [{"name": i, "id": i} for i in cols],
-                                         id="baseTable")
-                ], width=12)
-            ], align='center'),
+    dbc.Row([
+        dbc.Col([
+            dash_table.DataTable([{col: df[col].sum() for col in cols}], [{"name": i, "id": i} for i in cols],
+                                 id="baseTable")
+        ], width=12)
+    ], align='center'),
     dcc.Graph(id="temporalEvolution", ),
 ])
 tab_2 = html.Div([
@@ -110,27 +111,35 @@ app.layout = html.Div([
                     ])
                 ], width=12)
             ], align='center'),
-            ]),
-            dbc.CardBody([
+            dbc.Row([
+                dcc.Checklist(
+                        ["cumulative"],
+                        [],
+                        style={'display': 'flex'},
+                        id="cumulative"
+                  )
+            ])
+        ]),
+        dbc.CardBody([
             dbc.Row([
                 dbc.CardGroup([
                     dbc.Card(
                         dbc.CardBody(
-                        [
-                            dcc.Graph(id="userSurvival"),
-                        ])
+                            [
+                                dcc.Graph(id="userSurvival"),
+                            ])
                     ),
 
                     dbc.Card(
                         dbc.CardBody(
                             [
                                 dcc.Graph(id="map"),
-                                dcc.Dropdown(cols, 'changesets', id='mapKey', style={"border": "None"})
+                                dcc.Dropdown(cols, 'changesets', id='mapKey')
                             ]))],
                 )
             ], align='center')
         ])
-    ],color="secondary",outline=True),
+    ], color="secondary", outline=True),
 ])
 
 
@@ -188,12 +197,13 @@ def getSelectInterval(start_date: str, end_date: str, interval: str):
     Output("map", "figure"),
     Input("apply-button", "n_clicks"),
     Input("mapKey", "value"),
+    Input("cumulative","value"),
     State("timepicker", "start_date"),
     State("timepicker", "end_date"),
     State("interval", "value"),
     State("inputHashtag", "value"),
 )
-def updateDFs(n_clicks: int, key_map: str, start_date: str, end_date: str, interval: str, hashtag: str):
+def updateDFs(n_clicks: int, key_map: str,cummulative:[str], start_date: str, end_date: str, interval: str, hashtag: str):
     global df
     global df_user
     global cols
@@ -210,6 +220,7 @@ def updateDFs(n_clicks: int, key_map: str, start_date: str, end_date: str, inter
     print(interval)
     print(n_clicks, clicks)
     print(df.changesets.sum())
+
     if clicks != n_clicks:
         clicks += 1
         hashtag = hashtag.replace("#", "")
@@ -282,9 +293,10 @@ def updateDFs(n_clicks: int, key_map: str, start_date: str, end_date: str, inter
     print(df.changesets.sum())
     fig_table = [{col: df[col].sum() for col in cols}]
     fig_timeseries = make_subplots(rows=2, cols=2, subplot_titles=(cols))
+    cummulative = "cumulative" not in cummulative
     for i, col in zip([(0, 0), (0, 1), (1, 0), (1, 1)], cols):
         fig_timeseries.add_trace(
-            go.Scatter(x=df.date, y=df[col], name=col),
+            go.Scatter(x=df.date, y = df[col] if cummulative else df[col].cumsum(), name=col),
             row=i[0] + 1, col=i[1] + 1)
         fig_timeseries.update_yaxes(title_text="number of " + col, row=i[0] + 1, col=i[1] + 1)
         fig_timeseries.update_xaxes(title_text="date", row=i[0] + 1, col=i[1] + 1)
@@ -298,7 +310,9 @@ def updateDFs(n_clicks: int, key_map: str, start_date: str, end_date: str, inter
                             locations=gdf_merged.index,
                             color=key_map,
                             projection="mollweide", title="Map")
-
+    for fig in [fig_timeseries, fig_user, fig_map]:
+        fig.update_yaxes(automargin=True)
+        fig.update_xaxes(automargin=True)
     return fig_table, fig_timeseries, fig_user, fig_map
 
 
