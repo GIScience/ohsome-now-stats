@@ -17,11 +17,14 @@ app = Dash(__name__, external_stylesheets=external_stylesheets)
 load_dotenv("dev.env")
 clicks = 0
 try:
+    print("try connecetion")
     con = clickhouse_connect.get_client(
         user=os.getenv("userOHSOME"),
         host=os.getenv("hostOHSOME"),
         port=os.getenv("portOHSOME"))
+    print("succesfull")
 except:
+    print("failed_connection")
     pass
 
 df = pd.read_feather("data/df_missingmaps.feather")
@@ -41,31 +44,42 @@ header = html.Div([
     html.Div([
         html.H1(children='OhsomeNOW Dashboard',
                 style={'textAlign': 'center'}
-                )],
-        className='row',
+                ),],
+        className="bg-primary text-white p-4 mb-2 text-center",
 
         style={'padding-top': '1%'}
     ),
     html.Br(),
-    html.Div([
-        dbc.Row([
-            dbc.Col([dcc.Input(id="inputHashtag", type="text", placeholder="e.g #MissingMaps", debounce=True,
-                               style={"height": '43 px'})]),
-            dbc.Col([
-                dcc.DatePickerRange(
-                    start_date=df['date'].min().to_pydatetime(),
-                    end_date=df['date'].max().to_pydatetime(),
-                    display_format='D MMM YYYY HH',
-                    id='timepicker', style={'height': '43 px'})]),
-            dbc.Col([
-                dcc.Dropdown(['auto', 'monthly', 'daily', 'hourly', "minutely"], 'monthly', id='interval',
-                             style={"border": "None", 'height': '43 px'}),
-            ], style={"height": '43 px', "justify": "center"}),
-            html.Button('Apply', id='apply-button', n_clicks=0),
-        ], style={'display': 'flex', "border": "True", "justify": "center"}),
-    ])])
+    dbc.Card([
+        dbc.CardHeader("Queryparameters"),
+        dbc.CardBody([
+            html.Div([
+                dbc.Row([
+                    dbc.Stack(
+                        [dbc.Input(id="inputHashtag", type="text", placeholder="e.g #MissingMaps", debounce=True,className="w-25"),
+                        dcc.DatePickerRange(
+                                    start_date=df['date'].min().to_pydatetime(),
+                                    end_date=df['date'].max().to_pydatetime(),
+                                    display_format='D MMM YYYY HH',
+                                    id='timepicker'),
+
+                        dcc.Dropdown(['auto', 'monthly', 'daily', 'hourly', "minutely"],"auto", id='interval'),
+
+                        dbc.Button('Apply', id='apply-button', n_clicks=0,color="primary")
+                    ],direction="horizontal",gap=1)
+                ])
+            ])
+        ])
+    ])
+])
 
 tab_1 = html.Div([
+            dbc.Row([
+                dbc.Col([
+                    dash_table.DataTable([{col: df[col].sum() for col in cols}], [{"name": i, "id": i} for i in cols],
+                                         id="baseTable")
+                ], width=12)
+            ], align='center'),
     dcc.Graph(id="temporalEvolution", ),
 ])
 tab_2 = html.Div([
@@ -85,37 +99,38 @@ tab_2 = html.Div([
 app.layout = html.Div([
     header,
     html.Br(),
-    dbc.Card(
+    dbc.Card([
+        dbc.CardHeader("Query Results"),
         dbc.CardBody([
             dbc.Row([
                 dbc.Col([
-                    dash_table.DataTable([{col: df[col].sum() for col in cols}], [{"name": i, "id": i} for i in cols],
-                                         id="baseTable")
+                    dbc.Tabs([
+                        dbc.Tab(tab_1, label="overview"),
+                        dbc.Tab(tab_2, label="compare")
+                    ])
                 ], width=12)
             ], align='center'),
-            html.Br(),
+            ]),
+            dbc.CardBody([
             dbc.Row([
-                dbc.Col([
-                    dcc.Tabs(id="tabs-example-graph", value='tab-1-example-graph', children=[
-                        dcc.Tab(label='Overview', value='tab-1-example-graph', children=[tab_1]),
-                        dcc.Tab(label='compare', value='tab-2-example-graph', children=[tab_2]),
-                    ])], width=12)
-            ], align='center'),
-            dbc.Row([
-                dbc.Col(
-                    [
-                        dcc.Graph(id="userSurvival")
-                    ], width=6
-                ),
-                dbc.Col(
-                    [
-                        dcc.Graph(id="map"),
-                        dcc.Dropdown(cols, 'changesets', id='mapKey', style={"border": "None"})
-                    ], width=6
+                dbc.CardGroup([
+                    dbc.Card(
+                        dbc.CardBody(
+                        [
+                            dcc.Graph(id="userSurvival"),
+                        ])
+                    ),
+
+                    dbc.Card(
+                        dbc.CardBody(
+                            [
+                                dcc.Graph(id="map"),
+                                dcc.Dropdown(cols, 'changesets', id='mapKey', style={"border": "None"})
+                            ]))],
                 )
             ], align='center')
         ])
-    ),
+    ],color="secondary",outline=True),
 ])
 
 
@@ -192,6 +207,7 @@ def updateDFs(n_clicks: int, key_map: str, start_date: str, end_date: str, inter
         pass
     print(start_date, end_date)
     print(hashtag)
+    print(interval)
     print(n_clicks, clicks)
     print(df.changesets.sum())
     if clicks != n_clicks:
