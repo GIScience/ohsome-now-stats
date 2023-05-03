@@ -243,7 +243,7 @@ def updateDFs(n_clicks: int, key_map: str,cummulative:[str], start_date: str, en
                 count(DISTINCT changeset_id) as changesets,
                 SUM(CASE WHEN (building_area > 0.0 ) THEN 1 ELSE 0 END) as building_edits,
                 SUM(CASE WHEN (road_length > 0.0) THEN 1 ELSE 0 END) as road_edits
-                FROM __stats_all_unnested
+                FROM stats
                 WHERE lower(hashtag) LIKE lower('#{hashtag}')
                 AND (FROM_UNIXTIME((changeset_timestamp/1000)::integer) BETWEEN  '{start_date}' and '{end_date}')
                 {groupby}
@@ -263,7 +263,7 @@ def updateDFs(n_clicks: int, key_map: str,cummulative:[str], start_date: str, en
             count(DISTINCT changeset_id) as changesets,
             min(FROM_UNIXTIME((changeset_timestamp/1000)::integer)) as oldest,
             max(FROM_UNIXTIME((changeset_timestamp/1000)::integer)) as latest
-            FROM __stats_all_unnested
+            FROM stats
             WHERE lower(hashtag) ILIKE lower('#{hashtag}')
             GROUP BY user_id
             """
@@ -281,7 +281,7 @@ def updateDFs(n_clicks: int, key_map: str,cummulative:[str], start_date: str, en
                 count(DISTINCT changeset_id) as changesets,
                 SUM(CASE WHEN (building_area > 0.0 ) THEN 1 ELSE 0 END) as building_edits,
                 SUM(CASE WHEN (road_length > 0.0) THEN 1 ELSE 0 END) as road_edits
-                FROM __stats_all_unnested
+                FROM stats
                 WHERE lower(hashtag) LIKE lower('#{hashtag}')
                 AND (FROM_UNIXTIME((changeset_timestamp/1000)::integer) BETWEEN '{start_date}' and '{end_date}')
                 GROUP BY a3
