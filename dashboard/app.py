@@ -114,7 +114,7 @@ app.layout = html.Div([
             dbc.Row([
                 dcc.Checklist(
                         ["cumulative"],
-                        [],
+                        ["cumulative"],
                         style={'display': 'flex'},
                         id="cumulative"
                   )
