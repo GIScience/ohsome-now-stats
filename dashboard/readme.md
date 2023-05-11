@@ -15,7 +15,7 @@ please configure the .env file with valid connection to a running clickhouse db
 ```yaml 
 hostOHSOME="host"
 userOHSOME=user
-userOHSOME=password
+passwordOHSOME=password
 portOHSOME=port
 ```
 
