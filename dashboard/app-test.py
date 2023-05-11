@@ -322,13 +322,16 @@ def updateDFs(n_clicks: int, key_map: str, cummulative: [str], start_date: str, 
     print(df.changesets.sum())
     fig_table = [{col: df[col].sum() for col in cols}]
     fig_timeseries = make_subplots(rows=2, cols=2, subplot_titles=(cols))
-    cummulative = "cumulative" not in cummulative
+
+    isCumulative = True if "cumulative" in cummulative else False
+    graphtype = go.Scatter if isCumulative else go.Bar
     for i, col in zip([(0, 0), (0, 1), (1, 0), (1, 1)], cols):
         fig_timeseries.add_trace(
-            go.Scatter(x=df.date, y=df[col] if cummulative else df[col].cumsum(), name=col),
+            graphtype(x=df.date, y=df[col] if not isCumulative else df[col].cumsum(), name=col),
             row=i[0] + 1, col=i[1] + 1)
         fig_timeseries.update_yaxes(title_text="number of " + col, row=i[0] + 1, col=i[1] + 1)
         fig_timeseries.update_xaxes(title_text="date", row=i[0] + 1, col=i[1] + 1)
+
     fig_user = px.histogram(df_user, x="delta", nbins=21, title="User survival rate in days")
     fig_user.update_xaxes(title_text="number of days")
     fig_user.update_yaxes(title_text="number of users")
