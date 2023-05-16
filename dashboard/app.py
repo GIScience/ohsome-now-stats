@@ -332,10 +332,15 @@ def updateDFs(n_clicks: int, key_map: str, start_date: str, end_date: str, inter
         fig_evolution.update_xaxes(title_text="date", row=i[0] + 1, col=i[1] + 1)
 
     ndays = df_user["ndays"].to_numpy()
-    share_ndays = [len(ndays[ndays>=i])/len(ndays)*100 for i in range(20)]
+    share_ndays = [len(ndays[ndays>=i])/len(ndays)*100 for i in range(1,20)]
     print(share_ndays)
 
-    fig_user = px.histogram(df_user, x="delta", nbins=21, title="User survival rate in days")
+    fig_user = go.Figure(data=go.Scatter(x=[i for i in range(1,20)], y=share_ndays, name="Active days")
+    )
+    fig_user.update_yaxes(title_text="share of users [%] ")
+    fig_user.update_xaxes(title_text="days")
+
+    #fig_user = px.histogram(df_user, x="delta", nbins=21, title="User survival rate in days")
     fig_user.update_xaxes(title_text="number of days")
     fig_user.update_yaxes(title_text="number of users")
     gdf_merged = df_boundaries.merge(df_map, right_on="a3", left_on="SOV_A3").set_index("SOV_A3")
