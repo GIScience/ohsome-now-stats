@@ -247,13 +247,12 @@ def updateDFs(n_clicks: int, key_map: str, start_date: str, end_date: str, inter
         clicks += 1
         hashtag = hashtag.replace("#", "")
         hashtag = hashtag.replace("*", "%")
-        hashtag = hashtag.lower()
         start_date = start_date.replace("T", " ")
         end_date = end_date.replace("T", " ")
         select, groupby, fun = getSelectInterval(start_date, end_date, interval)
 
         try:
-            df = pd.read_feather(f"data/df_{hashtag}_{start_date}_{end_date}_{interval}.feather")
+            df = pd.read_feather(f"data/df_{hashtag.lower()}_{start_date}_{end_date}_{interval}.feather")
             df.date = pd.to_datetime(df.date)
             df = df.set_index(pd.DatetimeIndex(df["date"]))
             df = df.sort_index()
@@ -267,7 +266,7 @@ def updateDFs(n_clicks: int, key_map: str, start_date: str, end_date: str, inter
                 SUM(CASE WHEN (building_area > 0.0 ) THEN 1 ELSE 0 END) as building_edits,
                 SUM(CASE WHEN (road_length > 0.0) THEN 1 ELSE 0 END) as road_edits
                 FROM stats
-                WHERE lower(hashtag) LIKE lower('#{hashtag}')
+                WHERE hashtag = '#{hashtag}'
                 AND (FROM_UNIXTIME((changeset_timestamp/1000)::integer) BETWEEN  '{start_date}' and '{end_date}')
                 {groupby}
             """
@@ -276,10 +275,10 @@ def updateDFs(n_clicks: int, key_map: str, start_date: str, end_date: str, inter
                 fun, axis=1
             )
             df.date = pd.to_datetime(df.date)
-            df.to_feather(f"data/df_{hashtag}_{start_date}_{end_date}_{interval}.feather")
+            df.to_feather(f"data/df_{hashtag.lower()}_{start_date}_{end_date}_{interval}.feather")
             df = df.set_index(pd.DatetimeIndex(df["date"])).sort_index().drop(["year", "month"], axis=1)
         try:
-            df_user = pd.read_feather(f"data/df_{hashtag}_{start_date}_{end_date}_user.feather")
+            df_user = pd.read_feather(f"data/df_{hashtag.lower()}_{start_date}_{end_date}_user.feather")
         except:
             sql = f"""
             SELECT user_id,
@@ -288,15 +287,15 @@ def updateDFs(n_clicks: int, key_map: str, start_date: str, end_date: str, inter
             max(FROM_UNIXTIME((changeset_timestamp/1000)::integer)) as latest,
             COUNT(DISTINCT CAST(FROM_UNIXTIME((changeset_timestamp/1000)::integer) as date)) as ndays
             FROM stats
-            WHERE lower(hashtag) ILIKE lower('#{hashtag}')
+            WHERE hashtag like '#{hashtag}'
             GROUP BY user_id
             """
             df_user = con.query_df(sql)
             df_user["delta"] = df_user.latest - df_user.oldest
             df_user.delta = df_user.delta.dt.days
-            df_user.to_feather(f"data/df_{hashtag}_{start_date}_{end_date}_user.feather")
+            df_user.to_feather(f"data/df_{hashtag.lower()}_{start_date}_{end_date}_user.feather")
         try:
-            df_map = pd.read_feather(f"data/df_{hashtag}_{start_date}_{end_date}_map.feather")
+            df_map = pd.read_feather(f"data/df_{hashtag.lower()}_{start_date}_{end_date}_map.feather")
         except:
             sql = f"""
                 SELECT
@@ -307,7 +306,7 @@ def updateDFs(n_clicks: int, key_map: str, start_date: str, end_date: str, inter
                 SUM(CASE WHEN (building_area > 0.0 ) THEN 1 ELSE 0 END) as building_edits,
                 SUM(CASE WHEN (road_length > 0.0) THEN 1 ELSE 0 END) as road_edits
                 FROM stats
-                WHERE lower(hashtag) LIKE lower('#{hashtag}')
+                WHERE hashtag like '#{hashtag}'
                 AND (FROM_UNIXTIME((changeset_timestamp/1000)::integer) BETWEEN '{start_date}' and '{end_date}')
                 GROUP BY a3
             """
