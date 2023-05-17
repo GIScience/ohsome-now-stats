@@ -18,14 +18,6 @@ app = Dash(__name__, external_stylesheets=external_stylesheets)
 
 load_dotenv("dev.env")
 
-try:
-    print("try connecetion")
-    con = clickhouse_connect.get_client(host=os.getenv("hostOHSOME")
-        )
-    print("succesfull")
-except:
-    print("failed_connection")
-    pass
 
 clicks = 0
 
@@ -41,7 +33,7 @@ df = df.set_index(pd.DatetimeIndex(df["date"]))
 
 df_map = pd.read_feather("data/df_missingmaps_2017-01-01 00 00 00_2017-12-01 00 00 00_map.feather")
 
-cols = ["changesets", "users", "building_edits", "road_edits"]
+cols = ["total_edits", "users", "building_edits", "road_edits"]
 
 query = \
     dbc.Card([
@@ -278,7 +270,7 @@ def updateDFs(n_clicks: int, key_map: str, start_date: str, end_date: str, inter
             df.to_feather(f"data/df_{hashtag}_{start_date}_{end_date}_{interval}.feather")
             df = df.set_index(pd.DatetimeIndex(df["date"])).sort_index().drop(["year", "month"], axis=1)
         try:
-            df_user = pd.read_feather(f"data/df_{hashtag}_{start_date}_{end_date}_{interval}_user.feather")
+            df_user = pd.read_feather(f"data/df_{hashtag}_{start_date}_{end_date}_user.feather")
         except:
             sql = f"""
             SELECT user_id,
@@ -293,7 +285,7 @@ def updateDFs(n_clicks: int, key_map: str, start_date: str, end_date: str, inter
             df_user = con.query_df(sql)
             df_user["delta"] = df_user.latest - df_user.oldest
             df_user.delta = df_user.delta.dt.days
-            df_user.to_feather(f"data/df_{hashtag}_{start_date}_{end_date}_{interval}_user.feather")
+            df_user.to_feather(f"data/df_{hashtag}_{start_date}_{end_date}_user.feather")
         try:
             df_map = pd.read_feather(f"data/df_{hashtag}_{start_date}_{end_date}_map.feather")
         except:
@@ -338,7 +330,8 @@ def updateDFs(n_clicks: int, key_map: str, start_date: str, end_date: str, inter
     fig_user = go.Figure(data=go.Scatter(x=[i for i in range(1,20)], y=share_ndays, name="Active days")
     )
     fig_user.update_yaxes(title_text="share of users [%] ")
-    fig_user.update_xaxes(title_text="days")
+    fig_user.update_xaxes(title_text="Active days")
+    fig_user.update_layout(title="Survival rate by active days")
 
     #fig_user = px.histogram(df_user, x="delta", nbins=21, title="User survival rate in days")
     fig_user.update_xaxes(title_text="number of days")
