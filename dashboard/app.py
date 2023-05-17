@@ -21,6 +21,15 @@ load_dotenv("dev.env")
 
 clicks = 0
 
+try:
+    print("try connecetion")
+    con = clickhouse_connect.get_client(host=os.getenv("hostOHSOME")
+        )
+    print("succesfull")
+except:
+    print("failed_connection")
+    pass
+
 
 df = pd.read_feather("data/df_missingmaps_2020-01-01 00:00:00_2021-01-01 00:00:00_monthly.feather")
 df_user = pd.read_feather("data/df_missingmaps_2020-01-01 00:00:00_2021-01-01 00:00:00_monthly_user.feather")
