@@ -287,7 +287,7 @@ def updateDFs(n_clicks: int, key_map: str, start_date: str, end_date: str, inter
             max(FROM_UNIXTIME((changeset_timestamp/1000)::integer)) as latest,
             COUNT(DISTINCT CAST(FROM_UNIXTIME((changeset_timestamp/1000)::integer) as date)) as ndays
             FROM stats
-            WHERE hashtag like '#{hashtag}'
+            WHERE hashtag = '#{hashtag}'
             GROUP BY user_id
             """
             df_user = con.query_df(sql)
@@ -306,7 +306,7 @@ def updateDFs(n_clicks: int, key_map: str, start_date: str, end_date: str, inter
                 SUM(CASE WHEN (building_area > 0.0 ) THEN 1 ELSE 0 END) as building_edits,
                 SUM(CASE WHEN (road_length > 0.0) THEN 1 ELSE 0 END) as road_edits
                 FROM stats
-                WHERE hashtag like '#{hashtag}'
+                WHERE hashtag ='#{hashtag}'
                 AND (FROM_UNIXTIME((changeset_timestamp/1000)::integer) BETWEEN '{start_date}' and '{end_date}')
                 GROUP BY a3
             """
