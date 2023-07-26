@@ -440,11 +440,11 @@ These tag values account for more than 95% of all OSM features tagged with the b
 | OSM Type       | way, relation                                                                                                                                    |
 | Geometry Type  | Linestring                                                                                                                                       |
 | OSM Tag Keys   | highway                                                                                                                                          |
-| OSM Tag Values | motorway, trunk, motorway_link, trunk_link, primary, primary_link, secondary, secondary_link, tertiary, tertiary_link, unclassified, residential |
+| OSM Tag Values | motorway, trunk, motorway_link, trunk_link, primary, primary_link, secondary, secondary_link, tertiary, tertiary_link, unclassified, residential, living_street, service, pedestrian, track, bus_guideway, escape, raceway, road, busway |
 | Unit           | count, length [m]                                                                                                                               |
 | Validity Check | delta length < XXX meters                                                                                                                        |
 
-These are the principal tag values for the road network and the link roads as defined in the [OSM Wiki](https://wiki.openstreetmap.org/wiki/Map_features#Highway). Special road types (e.g. tracks, paths or footways) are not considered in this topic.
+These are the principal tag values for the road network, link roads and special road types as defined in the [OSM Wiki](https://wiki.openstreetmap.org/wiki/Map_features#Highway).
 
 Roads are not as important as buildings in regard to corporate mapping.
 
