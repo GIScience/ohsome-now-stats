@@ -1,0 +1,39 @@
+= Options for Ingestion OPC-files from s3 into ClickhouseDB
+
+== Trigger
+
+1. Event-based via RUSTFS-Webhooks
+2. Cron
+3. systemd.timer
+4. *Custom Service*
+5. Dagster / Airflow / ...
+6. Flink
+
+== Data Access
+
+1. Database functions (read_s3)
+2. *Database driver (JDBC, ClickhouseClient,...)*
+3. *Read from ohsomeDB*
+
+== Error Handling / Recovery
+* State Handling
+    ** -> Changesets lead the process
+    ** -> Transaction time in changesets table (ohsomeDB)
+    ** -> Where to store state (pg_tx_time) in service or clickhouse?
+    *** Store as metadata table and additionally in column
+
+* Transactions in Clickhouse ?
+    ** ACID guarantee for MergeTree, for single block of inserts
+* Domain Errors ("Poison Pills") vs technical Errors (Connection Problems, ...)
+    ** Fail OR Continue
+* Handle Vandalism (Boolean Flag)
+    ** large deltas
+    ** preparation for OSM Road Monitor Detections
+
+== Closed Changesets Handling
+
+* Only import contributions from closed changesets
+    ** How to get notice of closing?
+    1. Get latest changed and closed changesetIds
+    2. Get corresponding contributions from ohsomeDB
+    3. Ingest into Clickhouse
